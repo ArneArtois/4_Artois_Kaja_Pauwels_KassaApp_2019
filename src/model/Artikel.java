@@ -1,22 +1,32 @@
 package model;
 
 public class Artikel {
-    private String code;
+    private int code;
     private String omschrijving;
     private String artikelGroep;
     private double verkoopprijs;
     private final double btw = 0.06;
+    private int inVoorraad;
 
-    public Artikel(String code, String omschrijving, String artikelGroep, double prijs) {
+    public Artikel(int code, String omschrijving, String artikelGroep, double prijs, int aantal) {
         setCode(code);
         setOmschrijving(omschrijving);
         setArtikelGroep(artikelGroep);
         setVerkoopprijs(prijs);
+        setInVoorraad(aantal);
     }
 
-    public void setCode(String code) {
-        if(code == null || code.trim().isEmpty()) {
-            throw new IllegalArgumentException("Code cannot be empty");
+    private void setInVoorraad(int aantal) {
+        if(aantal < 0) {
+            throw new IllegalArgumentException("Aantal cannot be less than zero");
+        }
+
+        this.inVoorraad = aantal;
+    }
+
+    public void setCode(int code) {
+        if(code < 0) {
+            throw new IllegalArgumentException("Code cannot be less than zero");
         }
         this.code = code;
     }
@@ -42,7 +52,7 @@ public class Artikel {
         this.verkoopprijs = verkoopprijs;
     }
 
-    public String getCode() {
+    public int getCode() {
         return code;
     }
 
@@ -56,5 +66,10 @@ public class Artikel {
 
     public double getVerkoopprijs() {
         return verkoopprijs;
+    }
+
+    @Override
+    public String toString() {
+        return code + ": " + omschrijving + ", " + verkoopprijs + " EUR";
     }
 }
