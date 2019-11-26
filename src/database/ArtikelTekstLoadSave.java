@@ -5,6 +5,7 @@
 
 package database;
 
+import database.strategy.LoadSaveStrategy;
 import model.Artikel;
 import model.DomainException;
 
@@ -15,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-public class ArtikelTekstLoadSave {
+public class ArtikelTekstLoadSave implements LoadSaveStrategy {
     private HashMap<String, Artikel> artikelen;
 
     public ArtikelTekstLoadSave() {
@@ -44,16 +45,20 @@ public class ArtikelTekstLoadSave {
         return artikelen;
     }
 
-    public void save(List<Artikel> artikelen) throws IOException {
-        FileOutputStream fs = new FileOutputStream("src/bestanden/artikel.txt");
-        OutputStreamWriter os = new OutputStreamWriter(fs, StandardCharsets.UTF_8);
-        List<String> strList = new ArrayList<>();
-        for(Artikel a : artikelen) {
-            strList.add(a.toString());
-        }
+    public void save(List<Artikel> artikelen) {
+        try {
+            FileOutputStream fs = new FileOutputStream("src/bestanden/artikel.txt");
+            OutputStreamWriter os = new OutputStreamWriter(fs, StandardCharsets.UTF_8);
+            List<String> strList = new ArrayList<>();
+            for (Artikel a : artikelen) {
+                strList.add(a.toString());
+            }
 
-        String artikelStrs = String.join("\n", strList);
-        os.write(artikelStrs);
-        os.close();
+            String artikelStrs = String.join("\n", strList);
+            os.write(artikelStrs);
+            os.close();
+        } catch (IOException e) {
+            throw new DomainException(e.getMessage());
+        }
     }
 }
