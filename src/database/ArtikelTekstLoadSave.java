@@ -8,9 +8,8 @@ package database;
 import model.Artikel;
 import model.DomainException;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,5 +42,18 @@ public class ArtikelTekstLoadSave {
         scanner.close();
 
         return artikelen;
+    }
+
+    public void save(List<Artikel> artikelen) throws IOException {
+        FileOutputStream fs = new FileOutputStream("src/bestanden/artikel.txt");
+        OutputStreamWriter os = new OutputStreamWriter(fs, StandardCharsets.UTF_8);
+        List<String> strList = new ArrayList<>();
+        for(Artikel a : artikelen) {
+            strList.add(a.toString());
+        }
+
+        String artikelStrs = String.join("\n", strList);
+        os.write(artikelStrs);
+        os.close();
     }
 }

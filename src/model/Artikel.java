@@ -70,6 +70,7 @@ public class Artikel {
 
     @Override
     public String toString() {
-        return code + ": " + omschrijving + ", " + verkoopprijs + " EUR";
+        //8,artikel8,gr2,18.5,10
+        return code+","+omschrijving+","+artikelGroep+","+verkoopprijs+","+inVoorraad;
     }
 }
