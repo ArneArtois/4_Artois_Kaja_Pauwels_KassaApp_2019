@@ -16,13 +16,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-public class ArtikelTekstLoadSave implements LoadSaveStrategy {
+public class ArtikelTekstLoadSave implements LoadSaveStrategy, TekstLoadSaveTemplate {
     private HashMap<String, Artikel> artikelen;
 
     public ArtikelTekstLoadSave() {
         this.artikelen = new HashMap<>();
     }
 
+
+
+    @Override
     public List<Artikel> load() {
        List<Artikel> artikelen = new ArrayList<>();
        InputStream artikelFile = ArtikelTekstLoadSave.class.getResourceAsStream("/bestanden/artikel.txt");
@@ -45,7 +48,8 @@ public class ArtikelTekstLoadSave implements LoadSaveStrategy {
         return artikelen;
     }
 
-    public void save(List<Artikel> artikelen) {
+    @Override
+    public void save(List<Artikel> artikelen){
         try {
             FileOutputStream fs = new FileOutputStream("src/bestanden/artikel.txt");
             OutputStreamWriter os = new OutputStreamWriter(fs, StandardCharsets.UTF_8);
