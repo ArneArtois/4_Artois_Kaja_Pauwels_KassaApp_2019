@@ -28,16 +28,28 @@ public class ArtikelTekstLoadSave {
        InputStream artikelFile = ArtikelTekstLoadSave.class.getResourceAsStream("/bestanden/artikel.txt");
         Scanner scanner = new Scanner(artikelFile);
         scanner.useDelimiter(",");
-        while(scanner.hasNext()) {
-            int artikelNr = scanner.nextInt();
-            String artikelNaam = scanner.next();
-            String artikelGroep = scanner.next();
-            double prijs = scanner.nextDouble();
-            int voorraad = scanner.nextInt();
-            Artikel a = new Artikel(artikelNr,artikelNaam,artikelGroep, prijs, voorraad);
-            artikelen.add(a);
-
+        while(scanner.hasNextLine()) {
+            Scanner scannerLine = new Scanner(scanner.nextLine());
+            int artikelNr = scannerLine.nextInt();
+            String artikelNaam = scannerLine.next();
+            String artikelGroep = scannerLine.next();
+            double prijs = scannerLine.nextDouble();
+            System.out.println(artikelNr);
         }
+//        while(scanner.hasNext()) {
+//            int artikelNr = scanner.nextInt();
+//            String artikelNaam = scanner.next();
+//            String artikelGroep = scanner.next();
+//            double prijs = scanner.nextDouble();
+//            System.out.println(artikelNr);
+//            String voorraadStr = scanner.next();
+//            int voorraad = Integer.parseInt(voorraadStr.replace())
+//
+//
+//            Artikel a = new Artikel(artikelNr,artikelNaam,artikelGroep, prijs, voorraad);
+//            artikelen.add(a);
+//
+//        }
 
         return artikelen;
     }
