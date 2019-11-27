@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-public class ArtikelTekstLoadSave implements LoadSaveStrategy, TekstLoadSaveTemplate {
+public class ArtikelTekstLoadSave implements LoadSaveStrategy extends TekstLoadSaveTemplate {
     private HashMap<String, Artikel> artikelen;
 
     public ArtikelTekstLoadSave() {

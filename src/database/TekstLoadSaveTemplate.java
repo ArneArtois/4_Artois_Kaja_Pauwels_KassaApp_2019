@@ -4,7 +4,7 @@ import model.Artikel;
 
 import java.util.List;
 
-public interface TekstLoadSaveTemplate {
-    List<Artikel> load();
-    void save(List<Artikel> artikelen);
+public abstract class TekstLoadSaveTemplate {
+    abstract List<Artikel> load();
+    abstract void save(List<Artikel> artikelen);
 }
