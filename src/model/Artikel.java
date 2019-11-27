@@ -68,6 +68,10 @@ public class Artikel {
         return verkoopprijs;
     }
 
+    public int getInVoorraad() {
+        return inVoorraad;
+    }
+
     @Override
     public String toString() {
         //8,artikel8,gr2,18.5,10

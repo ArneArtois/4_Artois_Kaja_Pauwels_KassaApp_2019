@@ -22,8 +22,11 @@ public class ProductOverviewPane extends GridPane {
         this.setHgap(5);
         
 		this.add(new Label("Products:"), 0, 0, 1, 1);
-		
-		
+		this.add(new Label("Artikelcode"), 0, 1, 1, 1);
+		this.add(new Label("Omschrijving"), 1, 1, 1, 1);
+		this.add(new Label("Artikelgroep"), 2, 1, 1, 1);
+		this.add(new Label("Prijs"), 3, 1, 1, 1);
+		this.add(new Label("Actuele voorraad"), 4, 1, 1, 1);
 	}
 	
 	
