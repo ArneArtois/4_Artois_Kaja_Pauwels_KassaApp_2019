@@ -28,7 +28,7 @@ public class ArtikelTekstLoadSave implements LoadSaveStrategy {
     @Override
     public List<Artikel> load() {
        List<Artikel> artikelen = new ArrayList<>();
-       InputStream artikelFile = ArtikelTekstLoadSave.class.getResourceAsStream("/bestanden/artikel.txt");
+       InputStream artikelFile = ArtikelTekstLoadSave.class.getResourceAsStream("src/bestanden/artikel.txt");
         Scanner scanner = new Scanner(artikelFile);
 
         while(scanner.hasNextLine()) {
