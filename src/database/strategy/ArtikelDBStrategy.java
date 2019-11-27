@@ -7,4 +7,5 @@ import java.util.List;
 public interface ArtikelDBStrategy {
     List<Artikel> load();
     void save(List<Artikel> artikelen);
+    void add(Artikel a);
 }

@@ -5,7 +5,7 @@ import model.Artikel;
 
 import java.util.HashMap;
 import java.util.List;
-
+//Facade class to use in application
 public class ArtikelDBContext {
     private ArtikelDBStrategy strategy;
     private HashMap<String, Artikel> artikelen;
