@@ -8,4 +8,6 @@ public interface ArtikelDBStrategy {
     List<Artikel> load();
     void save(List<Artikel> artikelen);
     void add(Artikel a);
+    void remove(Artikel a);
+
 }
