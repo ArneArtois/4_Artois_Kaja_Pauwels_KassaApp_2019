@@ -26,8 +26,23 @@ public class ArtikelDBContext {
         return this.artikelen;
     }
 
+    public void add(Artikel a) {
+        if(a == null) {
+            throw new IllegalArgumentException("The given Artikel cannot be empty");
+        }
+        this.strategy.add(a);
+    }
+
     public List<Artikel> load() {
         return this.strategy.load();
+    }
+
+    public void remove(Artikel a) {
+        if(a == null) {
+            throw new IllegalArgumentException("The given Artikel cannot be empty");
+        }
+
+        this.strategy.remove(a);
     }
 
     public void save(List<Artikel> artikelen) {
