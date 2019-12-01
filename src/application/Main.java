@@ -1,7 +1,10 @@
 package application;
 	
+import database.ArtikelDBContext;
+import database.ArtikelDBInMemory;
 import database.ArtikelExcelLoadSaveTest;
 import database.ArtikelTekstLoadSave;
+import database.strategy.ArtikelDBStrategy;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import jxl.read.biff.BiffException;
@@ -16,11 +19,17 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws IOException, BiffException {
 		KassaView kassaView = new KassaView();
 		KlantView klantView = new KlantView();
-		ArtikelTekstLoadSave tekstLoadSave = new ArtikelTekstLoadSave();
+		/*ArtikelTekstLoadSave tekstLoadSave = new ArtikelTekstLoadSave();
 			tekstLoadSave.load();
 		ArtikelExcelLoadSaveTest excelLoadSave = new ArtikelExcelLoadSaveTest();
-		File file = new File("src/bestanden/artikel.xls");
+		File file = new File("src/bestanden/artikel.xls");*/
+
 		//excelLoadSave.read(file);
+
+		//For testing purposes
+		ArtikelDBContext context = new ArtikelDBContext();
+		context.setLoadSaveStrategy(new ArtikelTekstLoadSave());
+		context.setDBStrategy(new ArtikelDBInMemory());
 	}
 	
 	public static void main(String[] args) {

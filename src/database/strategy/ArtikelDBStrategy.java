@@ -2,12 +2,13 @@ package database.strategy;
 
 import model.Artikel;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface ArtikelDBStrategy {
-    List<Artikel> load();
-    void save(List<Artikel> artikelen);
+    //HashMap<Integer, Artikel> load();
+    //void save(List<Artikel> artikelen);
     void add(Artikel a);
-    void remove(Artikel a);
-
+    void remove(int code);
+    void setStrategy(LoadSaveStrategy strategy);
 }
