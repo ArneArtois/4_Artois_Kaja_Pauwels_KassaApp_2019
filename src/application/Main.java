@@ -20,7 +20,7 @@ public class Main extends Application {
 			tekstLoadSave.load();
 		ArtikelExcelLoadSaveTest excelLoadSave = new ArtikelExcelLoadSaveTest();
 		File file = new File("src/bestanden/artikel.xls");
-		excelLoadSave.read(file);
+		//excelLoadSave.read(file);
 	}
 	
 	public static void main(String[] args) {

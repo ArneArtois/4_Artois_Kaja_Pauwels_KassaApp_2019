@@ -28,10 +28,9 @@ public class ArtikelTekstLoadSave extends TekstLoadSaveTemplate {
     @Override
     public List<Artikel> load() {
        List<Artikel> artikelen = new ArrayList<>();
-       InputStream artikelFile = ArtikelTekstLoadSave.class.getResourceAsStream("src/bestanden/artikel.txt");
-        Scanner scanner = new Scanner(artikelFile);
-
-        while(scanner.hasNextLine()) {
+       File artikelFile = new File("src/bestanden/artikel.txt");
+    try(Scanner scanner = new Scanner(artikelFile)) {
+        while (scanner.hasNextLine()) {
             Scanner scannerLine = new Scanner(scanner.nextLine());
             scannerLine.useDelimiter(",");
             int artikelNr = Integer.parseInt(scannerLine.next());
@@ -43,7 +42,9 @@ public class ArtikelTekstLoadSave extends TekstLoadSaveTemplate {
             artikelen.add(a);
 
         }
-        scanner.close();
+    } catch (IOException e) {
+        throw new DbException(e.getMessage());
+    }
 
         return artikelen;
     }
