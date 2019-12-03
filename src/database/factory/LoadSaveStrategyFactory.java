@@ -8,6 +8,12 @@ import database.strategy.LoadSaveStrategy;
 import java.lang.reflect.InvocationTargetException;
 
 public class LoadSaveStrategyFactory {
+    private LoadSaveStrategyFactory uniqueInstance;
+
+    public LoadSaveStrategyFactory getUniqueInstance() {
+        return this.uniqueInstance;
+    }
+
     public static LoadSaveStrategy createStrategy(String type) {
         LoadSaveStrategy strategy;
        /* if(type.equals("Tekst")) {

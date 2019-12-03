@@ -7,6 +7,12 @@ import database.strategy.LoadSaveStrategy;
 import java.lang.reflect.InvocationTargetException;
 
 public class ArtikelDBStrategyFactory {
+    private ArtikelDBStrategyFactory uniqueInstance;
+
+    public ArtikelDBStrategyFactory getUniqueInstance() {
+        return this.uniqueInstance;
+    }
+
     public static ArtikelDBStrategy createStrategy(String type) {
         ArtikelDBStrategy strategy;
        /* if(type.equals("Tekst")) {
