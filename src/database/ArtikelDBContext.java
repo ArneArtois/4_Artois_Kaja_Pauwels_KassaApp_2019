@@ -2,8 +2,10 @@ package database;
 
 import database.strategy.ArtikelDBStrategy;
 import database.strategy.LoadSaveStrategy;
+import jxl.write.WriteException;
 import model.Artikel;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 //Facade class to use in application
@@ -59,6 +61,10 @@ public class ArtikelDBContext {
         if (artikelen == null) {
             throw new IllegalArgumentException("The given list of articles cannot be empty");
         }
-        this.strategy.save(artikelen);
+        try {
+            this.strategy.save(artikelen);
+        } catch (WriteException | IOException e) {
+            throw new DbException(e.getMessage());
+        }
     }
 }
