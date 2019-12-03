@@ -7,9 +7,12 @@ import database.ArtikelTekstLoadSave;
 import database.factory.ArtikelDBStrategyFactory;
 import database.factory.LoadSaveStrategyFactory;
 import database.strategy.ArtikelDBStrategy;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import model.Artikel;
 import model.ComparatorByOmschrijving;
@@ -32,6 +35,7 @@ public class KassaMainPane extends BorderPane {
         Tab artikelTab = new Tab("Artikelen",productOverviewPane);
         Tab instellingTab = new Tab("Instellingen", propertiesPane);
         Tab logTab = new Tab("Log");
+        ObservableList<Artikel> data = FXCollections.observableArrayList();
         Properties properties = propertiesPane.getInstellingen();
         if(properties.getProperty("method") == null || properties.getProperty("method").trim().isEmpty()) {
             try {
@@ -70,10 +74,12 @@ public class KassaMainPane extends BorderPane {
         verkoopPane.getCodeTextField().setOnAction(event -> {
             int code = Integer.parseInt(verkoopPane.getCodeTextField().getText());
 
-            verkoopPane.getErrorLabel().setText("Niet bestaande code");
+            //verkoopPane.getErrorLabel().setText("Niet bestaande code");
             Artikel a = db.get(code);
             if(a != null) {
                 System.out.println(a.toString());
+                data.add(a);
+                verkoopPane.getTableView().setItems(data);
             } else {
                 System.out.println("a is null");
                 verkoopPane.getErrorLabel().setText("Niet bestaande code");
