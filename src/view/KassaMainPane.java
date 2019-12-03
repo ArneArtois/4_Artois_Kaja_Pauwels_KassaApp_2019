@@ -88,6 +88,7 @@ public class KassaMainPane extends BorderPane {
                 System.out.println("a is null");
                 verkoopPane.getErrorLabel().setText("Niet bestaande code");
             }
+            verkoopPane.getCodeTextField().clear();
         });
 
 	    this.setCenter(tabPane);
