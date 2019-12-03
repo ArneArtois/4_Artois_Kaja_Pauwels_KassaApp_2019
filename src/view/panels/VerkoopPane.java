@@ -7,11 +7,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
 public class VerkoopPane extends GridPane {
-    Label enterLabel = new Label("Geef de artikelcode in: ");
-    TextField codeTextField = new TextField();
-    Button submitBtn = new Button("Bevestig");
-    Label errorLabel = new Label();
-    TableView tableView = new TableView();
+    private static Label enterLabel = new Label("Geef de artikelcode in: ");
+    private TextField codeTextField = new TextField();
+    private static Button submitBtn = new Button("Bevestig");
+    private Label errorLabel = new Label();
+    private TableView tableView = new TableView();
     public VerkoopPane() {
         this.add(enterLabel,0,0);
         this.add(codeTextField,0,1);
