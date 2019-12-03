@@ -11,6 +11,8 @@ public class VerkoopPane extends GridPane {
     private static Button submitBtn = new Button("Bevestig");
     private Label errorLabel = new Label();
     private TableView<model.Artikel> tableView = new TableView<>();
+    private Label prijs = new Label("Totale prijs: ");
+    private double som = 0;
 
     TableColumn omschrCol = new TableColumn<model.Artikel, Object>("Omschrijving");
     TableColumn prijsCol = new TableColumn("prijs");
@@ -31,6 +33,20 @@ public class VerkoopPane extends GridPane {
         );
         tableView.getColumns().addAll(omschrCol, prijsCol, aantalCol);
         this.add(tableView, 0,3);
+        this.add(prijs,0,4);
+    }
+
+    public Label getPrijs() {
+        return prijs;
+    }
+
+    public double getSom() {
+        return som;
+    }
+
+    public double addSom(double val) {
+        this.som += val;
+        return this.som;
     }
 
     public TextField getCodeTextField() {

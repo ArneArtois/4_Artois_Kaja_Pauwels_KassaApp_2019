@@ -81,6 +81,9 @@ public class KassaMainPane extends BorderPane {
                 data.add(a);
                 verkoopPane.getTableView().setItems(data);
                 verkoopPane.getErrorLabel().setText(" ");
+                double bedrag = a.getVerkoopprijs();
+                verkoopPane.getPrijs().setText("Totale prijs: " + verkoopPane.addSom(bedrag));
+
             } else {
                 System.out.println("a is null");
                 verkoopPane.getErrorLabel().setText("Niet bestaande code");
