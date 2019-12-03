@@ -69,6 +69,8 @@ public class KassaMainPane extends BorderPane {
 
         verkoopPane.getCodeTextField().setOnAction(event -> {
             int code = Integer.parseInt(verkoopPane.getCodeTextField().getText());
+
+            verkoopPane.getErrorLabel().setText("Niet bestaande code");
             Artikel a = db.get(code);
             if(a != null) {
                 System.out.println(a.toString());
