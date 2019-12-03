@@ -24,10 +24,10 @@ public class VerkoopPane extends GridPane {
                 new PropertyValueFactory<Artikel,String>("omschrijving")
         );
         prijsCol.setCellValueFactory(
-                new PropertyValueFactory<Artikel,Double>("prijs")
+                new PropertyValueFactory<Artikel,Double>("verkoopprijs")
         );
         aantalCol.setCellValueFactory(
-                new PropertyValueFactory<Artikel,Integer>("aantal")
+                new PropertyValueFactory<Artikel,Integer>("aantalPerKeer")
         );
         tableView.getColumns().addAll(omschrCol, prijsCol, aantalCol);
         this.add(tableView, 0,3);
