@@ -1,4 +1,4 @@
-package database.adapter;
+package database;
 
 import com.sun.rowset.internal.Row;
 import database.strategy.LoadSaveStrategy;
@@ -20,7 +20,7 @@ public class ArtikelExcelLoadSave implements LoadSaveStrategy {
     private ExcelPlugin plugin;
 
     public ArtikelExcelLoadSave() {
-        plugin = new ExcelPlugin();
+        this.plugin = new ExcelPlugin();
     }
 
     @Override
