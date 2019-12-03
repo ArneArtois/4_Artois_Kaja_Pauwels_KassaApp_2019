@@ -15,6 +15,7 @@ import model.Artikel;
 import model.ComparatorByOmschrijving;
 import view.panels.ProductOverviewPane;
 import view.panels.PropertiesPane;
+import view.panels.VerkoopPane;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -23,8 +24,9 @@ import java.util.*;
 
 public class KassaMainPane extends BorderPane {
 	public KassaMainPane(){
-	    TabPane tabPane = new TabPane(); 	    
-        Tab kassaTab = new Tab("Kassa");
+	    TabPane tabPane = new TabPane();
+        VerkoopPane verkoopPane = new VerkoopPane();
+        Tab kassaTab = new Tab("Kassa", verkoopPane);
         ProductOverviewPane productOverviewPane = new ProductOverviewPane();
         PropertiesPane propertiesPane = new PropertiesPane();
         Tab artikelTab = new Tab("Artikelen",productOverviewPane);

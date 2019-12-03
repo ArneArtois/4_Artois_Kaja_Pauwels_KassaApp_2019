@@ -2,7 +2,6 @@ package application;
 	
 import database.ArtikelDBContext;
 import database.ArtikelDBInMemory;
-import database.ArtikelExcelLoadSaveTest;
 import database.ArtikelTekstLoadSave;
 import database.strategy.ArtikelDBStrategy;
 import javafx.application.Application;
