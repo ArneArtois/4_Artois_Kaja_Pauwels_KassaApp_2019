@@ -10,9 +10,9 @@ public class VerkoopPane extends GridPane {
     private TextField codeTextField = new TextField();
     private static Button submitBtn = new Button("Bevestig");
     private Label errorLabel = new Label();
-    private TableView tableView = new TableView();
+    private TableView<model.Artikel> tableView = new TableView<>();
 
-    TableColumn omschrCol = new TableColumn("Omschrijving");
+    TableColumn omschrCol = new TableColumn<model.Artikel, Object>("Omschrijving");
     TableColumn prijsCol = new TableColumn("prijs");
     TableColumn aantalCol = new TableColumn("Aantal");
 
@@ -41,7 +41,7 @@ public class VerkoopPane extends GridPane {
         return errorLabel;
     }
 
-    public TableView getTableView() {
+    public TableView<model.Artikel> getTableView() {
         return tableView;
     }
 }
