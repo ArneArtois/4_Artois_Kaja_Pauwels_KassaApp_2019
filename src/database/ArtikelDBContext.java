@@ -57,6 +57,13 @@ public class ArtikelDBContext {
         this.db.remove(code);
     }
 
+    public Artikel get(int code) {
+        if(code < 0) {
+            throw new IllegalArgumentException("The given code cannot be less than zero");
+        }
+        return this.db.search(code);
+    }
+
     public void save(List<Artikel> artikelen) {
         if (artikelen == null) {
             throw new IllegalArgumentException("The given list of articles cannot be empty");

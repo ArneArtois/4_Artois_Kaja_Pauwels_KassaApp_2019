@@ -67,6 +67,17 @@ public class KassaMainPane extends BorderPane {
             i++;
         }
 
+        verkoopPane.getCodeTextField().setOnAction(event -> {
+            int code = Integer.parseInt(verkoopPane.getCodeTextField().getText());
+            Artikel a = db.get(code);
+            if(a != null) {
+                System.out.println(a.toString());
+            } else {
+                System.out.println("a is null");
+                verkoopPane.getErrorLabel().setText("Niet bestaande code");
+            }
+        });
+
 	    this.setCenter(tabPane);
 	}
 }
