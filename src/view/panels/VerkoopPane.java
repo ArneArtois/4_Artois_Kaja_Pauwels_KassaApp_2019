@@ -1,7 +1,9 @@
 package view.panels;
 
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
+import model.Artikel;
 
 public class VerkoopPane extends GridPane {
     private static Label enterLabel = new Label("Geef de artikelcode in: ");
@@ -18,6 +20,15 @@ public class VerkoopPane extends GridPane {
         this.add(enterLabel,0,0);
         this.add(codeTextField,0,1);
         this.add(errorLabel, 0, 2);
+        omschrCol.setCellValueFactory(
+                new PropertyValueFactory<Artikel,String>("omschrijving")
+        );
+        prijsCol.setCellValueFactory(
+                new PropertyValueFactory<Artikel,Double>("prijs")
+        );
+        aantalCol.setCellValueFactory(
+                new PropertyValueFactory<Artikel,Integer>("aantal")
+        );
         tableView.getColumns().addAll(omschrCol, prijsCol, aantalCol);
         this.add(tableView, 0,3);
     }
