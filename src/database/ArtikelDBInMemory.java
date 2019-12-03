@@ -33,8 +33,8 @@ public class ArtikelDBInMemory implements ArtikelDBStrategy{
         return artikelen;
     }
 
-
-    public Artikel get(int code){
+    @Override
+    public Artikel search(int code){
         if(code < 0){
             throw new DomainException("Code mag niet negatief zijn");
         }
@@ -44,6 +44,8 @@ public class ArtikelDBInMemory implements ArtikelDBStrategy{
     public List<Artikel> getAll(){
         return new ArrayList<Artikel>(artikelen.values());
     }
+
+
 
     public void add(Artikel artikel){
         if(artikel == null){

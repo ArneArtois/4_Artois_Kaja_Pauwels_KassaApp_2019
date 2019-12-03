@@ -12,4 +12,5 @@ public interface ArtikelDBStrategy {
     void remove(int code);
     void setStrategy(LoadSaveStrategy strategy);
     List<Artikel> getAll();
+    Artikel search(int code);
 }
