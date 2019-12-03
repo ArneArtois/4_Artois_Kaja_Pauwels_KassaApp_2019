@@ -27,9 +27,9 @@ public class Main extends Application {
 		//excelLoadSave.read(file);
 
 		//For testing purposes
-		ArtikelDBContext context = new ArtikelDBContext();
+		/*ArtikelDBContext context = new ArtikelDBContext();
 		context.setLoadSaveStrategy(new ArtikelTekstLoadSave());
-		context.setDBStrategy(new ArtikelDBInMemory());
+		context.setDBStrategy(new ArtikelDBInMemory());*/
 	}
 	
 	public static void main(String[] args) {

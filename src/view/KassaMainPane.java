@@ -16,6 +16,9 @@ import model.ComparatorByOmschrijving;
 import view.panels.ProductOverviewPane;
 import view.panels.PropertiesPane;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.*;
 
 public class KassaMainPane extends BorderPane {
@@ -28,6 +31,16 @@ public class KassaMainPane extends BorderPane {
         Tab instellingTab = new Tab("Instellingen", propertiesPane);
         Tab logTab = new Tab("Log");
         Properties properties = propertiesPane.getInstellingen();
+        if(properties.getProperty("method") == null || properties.getProperty("method").trim().isEmpty()) {
+            try {
+                OutputStream os = new FileOutputStream("src/bestanden/instellingen.properties");
+                properties.setProperty("method", "Tekst");
+                properties.store(os, "LoadSaveMethod");
+                os.close();
+            } catch (IOException e) {
+                throw new ViewException(e.getMessage());
+            }
+        }
         //ArtikelTekstLoadSave artikelTekstLoadSave = new ArtikelTekstLoadSave();
         //List<Artikel> artikelen = artikelTekstLoadSave.load();
         ArtikelDBContext db = new ArtikelDBContext();

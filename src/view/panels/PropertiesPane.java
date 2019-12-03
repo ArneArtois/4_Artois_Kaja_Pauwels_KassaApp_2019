@@ -20,11 +20,17 @@ public class PropertiesPane extends GridPane {
     public PropertiesPane() {
         try {
            is = new FileInputStream("src/bestanden/instellingen.properties");
+            //os = new FileOutputStream("src/bestanden/instellingen.properties");
            properties.load(is);
-           if(properties.getProperty("method").equals("Excel")) {
-               excelBox.setSelected(true);
-           } else if(properties.getProperty("method").equals("Tekst")) {
+           /*if(properties.getProperty("method") == null) {
+               properties.setProperty("method", "Tekst");
+               properties.store(os, "LoadSaveMethod");
+           }*/
+
+           if(properties.getProperty("method").equals("Tekst")) {
                tekstBox.setSelected(true);
+           } else if(properties.getProperty("method").equals("Excel")) {
+               excelBox.setSelected(true);
            }
            is.close();
         } catch(FileNotFoundException e) {
@@ -44,11 +50,11 @@ public class PropertiesPane extends GridPane {
                 if(tekstBox.isSelected()) {
                     choice = tekstBox.getText();
                     properties.setProperty("method",choice);
-                    properties.store(os, "LoadSaveChoice");
+                    properties.store(os, "LoadSaveMethod");
                 } else if(excelBox.isSelected()) {
                     choice = excelBox.getText();
                     properties.setProperty("method", choice);
-                    properties.store(os, "LoadSaveChoice");
+                    properties.store(os, "LoadSaveMethod");
                 }
                 os.close();
 
@@ -65,6 +71,10 @@ public class PropertiesPane extends GridPane {
     public Properties getInstellingen() {
         return properties;
     }
+
+   /* public OutputStream getOut() {
+        return this.os;
+    }*/
 
 
 }
