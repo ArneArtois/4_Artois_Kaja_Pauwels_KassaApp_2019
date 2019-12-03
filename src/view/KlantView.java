@@ -18,4 +18,5 @@ public class KlantView {
 		stage.sizeToScene();			
 		stage.show();		
 	}
+
 }
