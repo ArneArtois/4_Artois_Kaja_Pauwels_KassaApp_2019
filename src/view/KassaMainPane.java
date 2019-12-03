@@ -80,6 +80,7 @@ public class KassaMainPane extends BorderPane {
                 System.out.println(a.toString());
                 data.add(a);
                 verkoopPane.getTableView().setItems(data);
+                verkoopPane.getErrorLabel().setText(" ");
             } else {
                 System.out.println("a is null");
                 verkoopPane.getErrorLabel().setText("Niet bestaande code");
