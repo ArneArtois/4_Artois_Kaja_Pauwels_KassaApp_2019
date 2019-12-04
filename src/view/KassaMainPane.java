@@ -61,25 +61,11 @@ public class KassaMainPane extends BorderPane {
                 throw new ViewException(e.getMessage());
             }
         }
-        //ArtikelTekstLoadSave artikelTekstLoadSave = new ArtikelTekstLoadSave();
-        //List<Artikel> artikelen = artikelTekstLoadSave.load();
-
-        List<Artikel> artikelen = db.load();
         tabPane.getTabs().add(kassaTab);
         tabPane.getTabs().add(artikelTab);
         tabPane.getTabs().add(instellingTab);
         tabPane.getTabs().add(logTab);
-        Collections.sort(artikelen, new ComparatorByOmschrijving());
         //artikelen.sort(new ComparatorByOmschrijving());
-        int i = 1;
-        for(Artikel artikel : artikelen) {
-            productOverviewPane.add(new Label(Integer.toString(artikel.getCode())), 0, i+1, 1, 1);
-            productOverviewPane.add(new Label(artikel.getOmschrijving()), 1, i+1, 1, 1);
-            productOverviewPane.add(new Label(artikel.getArtikelGroep()), 2, i+1, 1, 1);
-            productOverviewPane.add(new Label(Double.toString(artikel.getVerkoopprijs())), 3, i+1, 1, 1);
-            productOverviewPane.add(new Label(Integer.toString(artikel.getInVoorraad())), 4, i+1, 1, 1);
-            i++;
-        }
 
        /* verkoopPane.getCodeTextField().setOnAction(event -> {
             int code = Integer.parseInt(verkoopPane.getCodeTextField().getText());
