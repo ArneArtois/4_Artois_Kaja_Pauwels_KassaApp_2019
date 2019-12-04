@@ -16,6 +16,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import model.Artikel;
 import model.ComparatorByOmschrijving;
+import model.Model;
+import view.domain.Controller;
 import view.panels.ProductOverviewPane;
 import view.panels.PropertiesPane;
 import view.panels.VerkoopPane;
@@ -27,6 +29,8 @@ import java.util.*;
 
 public class KassaMainPane extends BorderPane {
 	public KassaMainPane(){
+
+
 	    TabPane tabPane = new TabPane();
         VerkoopPane verkoopPane = new VerkoopPane();
         Tab kassaTab = new Tab("Kassa", verkoopPane);
@@ -70,6 +74,9 @@ public class KassaMainPane extends BorderPane {
             productOverviewPane.add(new Label(Integer.toString(artikel.getInVoorraad())), 4, i+1, 1, 1);
             i++;
         }
+        KlantView klantView = new KlantView();
+        Model model = new Model(db);
+        Controller controller = new Controller(klantView, model);
 
         verkoopPane.getCodeTextField().setOnAction(event -> {
             int code = Integer.parseInt(verkoopPane.getCodeTextField().getText());
@@ -83,6 +90,7 @@ public class KassaMainPane extends BorderPane {
                 verkoopPane.getErrorLabel().setText(" ");
                 double bedrag = a.getVerkoopprijs();
                 verkoopPane.getPrijs().setText("Totale prijs: " + verkoopPane.addSom(bedrag));
+                controller.handler();
 
             } else {
                 System.out.println("a is null");

@@ -48,6 +48,9 @@ public class ArtikelDBContext {
     public List<Artikel> load() {
         return this.strategy.load();
     }
+    public List<Artikel> getCart(){
+        return this.db.cart();
+    }
 
     public void remove(int code) {
         if(code < 0) {

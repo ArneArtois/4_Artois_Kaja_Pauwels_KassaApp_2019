@@ -13,4 +13,5 @@ public interface ArtikelDBStrategy {
     void setStrategy(LoadSaveStrategy strategy);
     List<Artikel> getAll();
     Artikel search(int code);
+    List<Artikel> cart();
 }
