@@ -17,7 +17,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws IOException, BiffException {
 		KassaView kassaView = new KassaView();
-//		KlantView klantView = new KlantView();
+		KlantView klantView = new KlantView();
 		/*ArtikelTekstLoadSave tekstLoadSave = new ArtikelTekstLoadSave();
 			tekstLoadSave.load();
 		ArtikelExcelLoadSaveTest excelLoadSave = new ArtikelExcelLoadSaveTest();
