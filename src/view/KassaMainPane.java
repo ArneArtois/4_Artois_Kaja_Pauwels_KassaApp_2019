@@ -58,22 +58,10 @@ public class KassaMainPane extends BorderPane {
         //ArtikelDBStrategy db = ArtikelDBStrategyFactory.createStrategy("InMemory");
         //HashMap<Integer, Artikel> artikelenMap = db.loadArtikelen();
         db.setLoadSaveStrategy(LoadSaveStrategyFactory.createStrategy(properties.getProperty("method")));
-        List<Artikel> artikelen = db.load();
         tabPane.getTabs().add(kassaTab);
         tabPane.getTabs().add(artikelTab);
         tabPane.getTabs().add(instellingTab);
         tabPane.getTabs().add(logTab);
-        Collections.sort(artikelen, new ComparatorByOmschrijving());
-        //artikelen.sort(new ComparatorByOmschrijving());
-        int i = 1;
-        for(Artikel artikel : artikelen) {
-            productOverviewPane.add(new Label(Integer.toString(artikel.getCode())), 0, i+1, 1, 1);
-            productOverviewPane.add(new Label(artikel.getOmschrijving()), 1, i+1, 1, 1);
-            productOverviewPane.add(new Label(artikel.getArtikelGroep()), 2, i+1, 1, 1);
-            productOverviewPane.add(new Label(Double.toString(artikel.getVerkoopprijs())), 3, i+1, 1, 1);
-            productOverviewPane.add(new Label(Integer.toString(artikel.getInVoorraad())), 4, i+1, 1, 1);
-            i++;
-        }
         KlantView klantView = new KlantView();
         Model model = new Model(db);
         Controller controller = new Controller(klantView, model);
