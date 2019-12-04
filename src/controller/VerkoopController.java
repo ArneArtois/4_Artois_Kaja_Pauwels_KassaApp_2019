@@ -10,7 +10,7 @@ import view.panels.VerkoopPane;
 
 import java.util.List;
 
-public class VerkoopController implements Observer {
+public class VerkoopController{
     private Verkoop verkoop;
     private VerkoopPane verkoopPane;
     private double totalePrijs = 0;
@@ -18,7 +18,6 @@ public class VerkoopController implements Observer {
 
     public VerkoopController(Verkoop verkoopModel, ArtikelDBContext context) {
         this.verkoop = verkoopModel;
-        verkoopModel.registerObserver(this);
         this.context = context;
     }
 
@@ -37,11 +36,5 @@ public class VerkoopController implements Observer {
     public void codeEnter(int code) {
         Artikel a = context.get(code);
         verkoop.addArtikel(context.get(code));
-    }
-
-    @Override
-    public void update(Artikel a, List<Artikel> artikelen) {
-        this.totalePrijs += a.getVerkoopprijs();
-        verkoopPane.updateDisplay(this.totalePrijs, artikelen);
     }
 }

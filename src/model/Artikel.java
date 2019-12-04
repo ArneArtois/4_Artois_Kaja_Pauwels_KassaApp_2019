@@ -1,5 +1,7 @@
 package model;
 
+import java.lang.reflect.Array;
+
 public class Artikel {
     private int code;
     private String omschrijving;
@@ -7,7 +9,7 @@ public class Artikel {
     private double verkoopprijs;
     private final double btw = 0.06;
     private int inVoorraad;
-    private final int aantalPerKeer = 1;
+    private int aantalPerKeer;
 
     public Artikel(int code, String omschrijving, String artikelGroep, double prijs, int aantal) {
         setCode(code);
@@ -15,6 +17,14 @@ public class Artikel {
         setArtikelGroep(artikelGroep);
         setVerkoopprijs(prijs);
         setInVoorraad(aantal);
+        setAantalPerKeer(1);
+    }
+    public Artikel(Artikel artikel){
+        setCode(artikel.getCode());
+        setOmschrijving(artikel.getOmschrijving());
+        setArtikelGroep(artikel.getArtikelGroep());
+        setVerkoopprijs(artikel.getVerkoopprijs());
+        setInVoorraad(artikel.getInVoorraad());
     }
 
     public int getAantalPerKeer() {
@@ -76,7 +86,9 @@ public class Artikel {
     public int getInVoorraad() {
         return inVoorraad;
     }
+    public void setAantalPerKeer(int aantalPerKeer){ this.aantalPerKeer = aantalPerKeer;}
 
+    public void addOtherArtikel(int aantalPerKeer){ this.aantalPerKeer+= aantalPerKeer;}
     @Override
     public String toString() {
         //8,artikel8,gr2,18.5,10
