@@ -18,8 +18,8 @@ public class VerkoopController implements Observer {
     private double totalePrijs = 0;
     private ArtikelDBContext context;
 
-    public VerkoopController(VerkoopModel verkoopModel, ArtikelDBContext context) {
-        this.verkoopModel = verkoopModel;
+    public VerkoopController(ArtikelDBContext context) {
+        this.verkoopModel = new VerkoopModel();
         verkoopModel.registerObserver(this);
         this.context = context;
         klantView = new KlantView(this);

@@ -32,8 +32,7 @@ public class KassaMainPane extends BorderPane {
         ArtikelDBContext db = new ArtikelDBContext();
         db.setDBStrategy(ArtikelDBStrategyFactory.createStrategy("InMemory"));
         db.setLoadSaveStrategy(LoadSaveStrategyFactory.createStrategy(properties.getProperty("method")));
-        VerkoopModel verkoop = new VerkoopModel();
-        verkoopController = new VerkoopController(verkoop,db);
+        verkoopController = new VerkoopController(db);
 
         VerkoopPane verkoopPane = new VerkoopPane(verkoopController);
         verkoopController.setVerkoopPane(verkoopPane);
