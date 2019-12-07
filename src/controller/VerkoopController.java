@@ -23,6 +23,7 @@ public class VerkoopController implements Observer {
         verkoopModel.registerObserver(this);
         this.context = context;
         klantView = new KlantView(this);
+        this.verkoopPane = new VerkoopPane(this);
     }
 
     public void setVerkoopPane(VerkoopPane verkoopPane) {
@@ -31,6 +32,10 @@ public class VerkoopController implements Observer {
         }
 
         this.verkoopPane = verkoopPane;
+    }
+
+    public VerkoopPane getVerkoopPane() {
+        return verkoopPane;
     }
 
     public void setKlantViewPane(KlantViewPane klantViewPane) {
