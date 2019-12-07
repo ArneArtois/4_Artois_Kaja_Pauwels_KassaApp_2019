@@ -30,7 +30,7 @@ import java.util.*;
 
 public class KassaMainPane extends BorderPane {
     //TODO Mag dit? Niet zeker?
-    public static VerkoopController verkoopController;
+    public VerkoopController verkoopController;
 	public KassaMainPane(){
 	    TabPane tabPane = new TabPane();
         PropertiesPane propertiesPane = new PropertiesPane();
@@ -42,6 +42,7 @@ public class KassaMainPane extends BorderPane {
         VerkoopModel verkoop = new VerkoopModel();
         verkoopController = new VerkoopController(verkoop,db);
         VerkoopPane verkoopPane = new VerkoopPane(verkoopController);
+        KlantView klantView = new KlantView(verkoopController);
         verkoopController.setVerkoopPane(verkoopPane);
 
         Tab kassaTab = new Tab("Kassa", verkoopPane);
@@ -69,4 +70,9 @@ public class KassaMainPane extends BorderPane {
 
 	    this.setCenter(tabPane);
 	}
+
+    public void setVerkoopController(VerkoopController verkoopController) {
+        this.verkoopController = verkoopController;
+    }
+
 }

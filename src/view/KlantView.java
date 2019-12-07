@@ -23,14 +23,14 @@ public class KlantView {
 	//private Controller controller;
 	private KlantViewPane borderPane;
 
-	public KlantView(){
+
+	public KlantView(VerkoopController verkoopController){
 		PropertiesPane propertiesPane = new PropertiesPane();
 		Properties properties = propertiesPane.getInstellingen();
 		ArtikelDBContext db = new ArtikelDBContext();
 		db.setDBStrategy(ArtikelDBStrategyFactory.createStrategy("InMemory"));
 		db.setLoadSaveStrategy(LoadSaveStrategyFactory.createStrategy(properties.getProperty("method")));
 		VerkoopModel verkoop = new VerkoopModel();
-		VerkoopController verkoopController = KassaMainPane.verkoopController;
 		//VerkoopPane verkoopPane = new VerkoopPane(verkoopController);
 		//verkoopController.setVerkoopPane(verkoopPane);
 
