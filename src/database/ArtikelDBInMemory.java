@@ -40,7 +40,7 @@ public class ArtikelDBInMemory implements ArtikelDBStrategy{
             throw new DomainException("Code mag niet negatief zijn");
         }
         Artikel artikel = artikelen.get(code);
-        System.out.println(artikel);
+        System.out.println(artikel + " search sout");
         cart.add(artikel);
         return artikel;
     }

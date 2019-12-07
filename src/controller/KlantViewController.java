@@ -2,7 +2,7 @@ package controller;
 
 import database.ArtikelDBContext;
 import model.Artikel;
-import model.Verkoop;
+import model.VerkoopModel;
 import model.observer.Observer;
 import view.KlantView;
 import view.KlantViewPane;
@@ -12,12 +12,12 @@ import java.util.List;
 public class KlantViewController implements Observer {
     private ArtikelDBContext context;
     private KlantViewPane klantViewPane;
-    private Verkoop verkoop;
+    private VerkoopModel verkoop;
     private double totalePrijs = 0;
 
-    public KlantViewController(Verkoop verkoop, ArtikelDBContext context) {
+    public KlantViewController(VerkoopModel verkoopModel, ArtikelDBContext context) {
         this.context = context;
-        this.verkoop = verkoop;
+        this.verkoop = verkoopModel;
         verkoop.registerObserver(this);
     }
 

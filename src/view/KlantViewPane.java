@@ -11,12 +11,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import model.Artikel;
-import model.Verkoop;
+import model.VerkoopModel;
 import view.panels.PropertiesPane;
 import view.panels.VerkoopPane;
 
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 public class KlantViewPane extends GridPane {
     private TableView <Artikel> tableView = new TableView<>();
@@ -48,7 +47,28 @@ public class KlantViewPane extends GridPane {
 
     public void updateDisplay(double prijs, List<Artikel> artikelen) {
         this.prijs.setText("Totale prijs: " + prijs);
-        ObservableList<Artikel> observableList =  FXCollections.observableArrayList(artikelen);
+        ObservableList<Artikel> observableList =  FXCollections.observableArrayList(convertToCustomerView(artikelen));
         this.tableView.setItems(observableList);
+    }
+    public List<Artikel> convertToCustomerView(List<Artikel> artikelArrayList){
+        List<Artikel> result = new ArrayList<>();
+        List<Artikel> artikels = artikelArrayList;
+        HashMap<Artikel,Integer> artikelHashMap = new HashMap<>();
+        for(Artikel item: artikels)
+            if(artikelHashMap.containsKey(item)){
+                artikelHashMap.put(item, artikelHashMap.get(item) +1);
+            }
+            else
+                artikelHashMap.put(item, 1);
+
+        for(Map.Entry hashmap: artikelHashMap.entrySet()){
+            if( hashmap.getKey() != null) {
+                Artikel a = (Artikel) hashmap.getKey();
+                Artikel artikel = new Artikel(a.getCode(), a.getOmschrijving(), a.getArtikelGroep(), a.getVerkoopprijs(), a.getInVoorraad());
+                artikel.setAantalPerKeer((Integer) hashmap.getValue());
+                result.add(artikel);
+            }
+        }
+        return result;
     }
 }

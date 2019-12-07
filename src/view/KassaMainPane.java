@@ -18,7 +18,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import model.Artikel;
 import model.ComparatorByOmschrijving;
-import model.Verkoop;
+import model.VerkoopModel;
 import view.panels.ProductOverviewPane;
 import view.panels.PropertiesPane;
 import view.panels.VerkoopPane;
@@ -39,7 +39,7 @@ public class KassaMainPane extends BorderPane {
         ArtikelDBContext db = new ArtikelDBContext();
         db.setDBStrategy(ArtikelDBStrategyFactory.createStrategy("InMemory"));
         db.setLoadSaveStrategy(LoadSaveStrategyFactory.createStrategy(properties.getProperty("method")));
-        Verkoop verkoop = new Verkoop();
+        VerkoopModel verkoop = new VerkoopModel();
         verkoopController = new VerkoopController(verkoop,db);
         VerkoopPane verkoopPane = new VerkoopPane(verkoopController);
         verkoopController.setVerkoopPane(verkoopPane);

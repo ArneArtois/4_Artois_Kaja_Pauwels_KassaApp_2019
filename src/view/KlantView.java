@@ -8,16 +8,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.Artikel;
-import model.Verkoop;
+import model.VerkoopModel;
 import view.panels.PropertiesPane;
 //import view.domain.Controller;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 public class KlantView {
@@ -32,7 +29,7 @@ public class KlantView {
 		ArtikelDBContext db = new ArtikelDBContext();
 		db.setDBStrategy(ArtikelDBStrategyFactory.createStrategy("InMemory"));
 		db.setLoadSaveStrategy(LoadSaveStrategyFactory.createStrategy(properties.getProperty("method")));
-		Verkoop verkoop = new Verkoop();
+		VerkoopModel verkoop = new VerkoopModel();
 		VerkoopController verkoopController = KassaMainPane.verkoopController;
 		//VerkoopPane verkoopPane = new VerkoopPane(verkoopController);
 		//verkoopController.setVerkoopPane(verkoopPane);
@@ -44,7 +41,7 @@ public class KlantView {
 		Group root = new Group();
 		Scene scene = new Scene(root, 500, 500);
 		borderPane = new KlantViewPane();
-		verkoopController.setKlantView(borderPane);
+		verkoopController.setKlantViewPane(borderPane);
 		borderPane.prefHeightProperty().bind(scene.heightProperty());
 		borderPane.prefWidthProperty().bind(scene.widthProperty());
 		root.getChildren().add(borderPane);

@@ -1,11 +1,8 @@
 package controller;
 
 import database.ArtikelDBContext;
-import database.strategy.ArtikelDBStrategy;
-import javafx.scene.control.TableView;
 import model.Artikel;
-import model.Model;
-import model.Verkoop;
+import model.VerkoopModel;
 import model.observer.Observer;
 import view.KlantViewPane;
 import view.panels.VerkoopPane;
@@ -13,14 +10,14 @@ import view.panels.VerkoopPane;
 import java.util.List;
 
 public class VerkoopController implements Observer {
-    private Verkoop verkoop;
+    private VerkoopModel verkoopModel;
     private VerkoopPane verkoopPane;
-    private KlantViewPane klantView;
+    private KlantViewPane klantViewPane;
     private double totalePrijs = 0;
     private ArtikelDBContext context;
 
-    public VerkoopController(Verkoop verkoopModel, ArtikelDBContext context) {
-        this.verkoop = verkoopModel;
+    public VerkoopController(VerkoopModel verkoopModel, ArtikelDBContext context) {
+        this.verkoopModel = verkoopModel;
         verkoopModel.registerObserver(this);
         this.context = context;
     }
@@ -33,11 +30,11 @@ public class VerkoopController implements Observer {
         this.verkoopPane = verkoopPane;
     }
 
-    public void setKlantView(KlantViewPane klantView) {
-        if(klantView == null) {
+    public void setKlantViewPane(KlantViewPane klantViewPane) {
+        if(klantViewPane == null) {
             throw new IllegalArgumentException("KlantView mag niet leeg zijn");
         }
-        this.klantView = klantView;
+        this.klantViewPane = klantViewPane;
     }
 
     public double getTotalePrijs() {
@@ -46,13 +43,13 @@ public class VerkoopController implements Observer {
 
     public void codeEnter(int code) {
         Artikel a = context.get(code);
-        verkoop.addArtikel(context.get(code));
+        verkoopModel.addArtikel(a);
     }
 
     @Override
     public void update(Artikel a, List<Artikel> artikelen) {
         this.totalePrijs += a.getVerkoopprijs();
         verkoopPane.updateDisplay(this.totalePrijs, artikelen);
-        klantView.updateDisplay(this.totalePrijs, artikelen);
+        klantViewPane.updateDisplay(this.totalePrijs, artikelen);
     }
 }

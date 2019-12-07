@@ -7,7 +7,7 @@ public class Artikel {
     private double verkoopprijs;
     private final double btw = 0.06;
     private int inVoorraad;
-    private final int aantalPerKeer = 1;
+    private int aantalPerKeer = 1;
 
     public Artikel(int code, String omschrijving, String artikelGroep, double prijs, int aantal) {
         setCode(code);
@@ -19,6 +19,9 @@ public class Artikel {
 
     public int getAantalPerKeer() {
         return aantalPerKeer;
+    }
+    public void setAantalPerKeer(int aantalPerKeer) {
+        this.aantalPerKeer = aantalPerKeer;
     }
 
     private void setInVoorraad(int aantal) {

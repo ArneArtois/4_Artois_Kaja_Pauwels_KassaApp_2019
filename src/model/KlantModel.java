@@ -1,30 +1,25 @@
 package model;
 
+
+import database.ArtikelDBContext;
+import database.ArtikelDBInMemory;
 import model.observer.Observer;
 import model.observer.Subject;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Verkoop implements Subject {
+public class KlantModel implements Subject {
     private List<Artikel> artikelen;
     private List<Observer> observers;
 
-    public Verkoop() {
+    public KlantModel(ArtikelDBContext context){
         this.artikelen = new ArrayList<>();
         this.observers = new ArrayList<>();
     }
 
-    public List<Artikel> getArtikelen() {
+    public List<Artikel> getArtikelsInMemory(){
         return this.artikelen;
-    }
-
-    public void addArtikel(Artikel a) {
-        if(a == null) {
-            throw new IllegalArgumentException("Artikel mag niet leeg zijn");
-        }
-        this.artikelen.add(a);
-        notifyObservers(a, this.artikelen);
     }
 
     @Override
@@ -49,5 +44,9 @@ public class Verkoop implements Subject {
         for(Observer o : this.observers) {
             o.update(a, artikelen);
         }
+    }
+    public void addArtikel(Artikel artikel){
+        artikelen.add(artikel);
+        notifyObservers(artikel, artikelen);
     }
 }

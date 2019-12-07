@@ -10,7 +10,10 @@ import javafx.scene.layout.GridPane;
 import model.Artikel;
 import view.KlantView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class VerkoopPane extends GridPane {
     private Label enterLabel = new Label("Geef de artikelcode in: ");
@@ -48,6 +51,8 @@ public class VerkoopPane extends GridPane {
 
     public void updateDisplay(double prijs, List<Artikel> artikelen) {
         this.prijs.setText("Totale prijs: " + prijs);
+
+
         ObservableList<Artikel> observableList =  FXCollections.observableArrayList(artikelen);
         this.tableView.setItems(observableList);
     }
