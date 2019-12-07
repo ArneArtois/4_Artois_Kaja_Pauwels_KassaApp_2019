@@ -4,6 +4,7 @@ import database.ArtikelDBContext;
 import model.Artikel;
 import model.VerkoopModel;
 import model.observer.Observer;
+import view.KassaView;
 import view.KlantView;
 import view.KlantViewPane;
 import view.panels.VerkoopPane;
@@ -17,13 +18,17 @@ public class VerkoopController implements Observer {
     private KlantViewPane klantViewPane;
     private double totalePrijs = 0;
     private ArtikelDBContext context;
+    private KassaView kassaView;
 
-    public VerkoopController(ArtikelDBContext context) {
+    public VerkoopController() {
+
         this.verkoopModel = new VerkoopModel();
         verkoopModel.registerObserver(this);
-        this.context = context;
-        klantView = new KlantView(this);
+        this.context = new ArtikelDBContext();
+
+        this.klantView = new KlantView(this);
         this.verkoopPane = new VerkoopPane(this);
+        this.kassaView = new KassaView(this, context);
     }
 
     public void setVerkoopPane(VerkoopPane verkoopPane) {

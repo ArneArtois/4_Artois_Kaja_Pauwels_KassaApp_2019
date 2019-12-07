@@ -24,15 +24,16 @@ import java.util.*;
 public class KassaMainPane extends BorderPane {
     //TODO Mag dit? Niet zeker?
     public VerkoopController verkoopController;
-	public KassaMainPane(){
+    public ArtikelDBContext context;
+	public KassaMainPane(VerkoopController verkoopController, ArtikelDBContext context){
+	    this.context = context;
+	    this.verkoopController = verkoopController;
 	    TabPane tabPane = new TabPane();
         PropertiesPane propertiesPane = new PropertiesPane();
         Tab instellingTab = new Tab("Instellingen", propertiesPane);
         Properties properties = propertiesPane.getInstellingen();
-        ArtikelDBContext db = new ArtikelDBContext();
-        db.setDBStrategy(ArtikelDBStrategyFactory.createStrategy("InMemory"));
-        db.setLoadSaveStrategy(LoadSaveStrategyFactory.createStrategy(properties.getProperty("method")));
-        verkoopController = new VerkoopController(db);
+        this.context.setDBStrategy(ArtikelDBStrategyFactory.createStrategy("InMemory"));
+        this.context.setLoadSaveStrategy(LoadSaveStrategyFactory.createStrategy(properties.getProperty("method")));
 
         Tab kassaTab = new Tab("Kassa", verkoopController.getVerkoopPane());
         ProductOverviewPane productOverviewPane = new ProductOverviewPane();
@@ -59,9 +60,5 @@ public class KassaMainPane extends BorderPane {
 
 	    this.setCenter(tabPane);
 	}
-
-    public void setVerkoopController(VerkoopController verkoopController) {
-        this.verkoopController = verkoopController;
-    }
 
 }

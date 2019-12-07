@@ -1,22 +1,16 @@
 package application;
 	
-import database.ArtikelDBContext;
-import database.ArtikelDBInMemory;
-import database.ArtikelTekstLoadSave;
-import database.strategy.ArtikelDBStrategy;
+import controller.VerkoopController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import jxl.read.biff.BiffException;
-import view.KassaView;
-import view.KlantView;
 
-import java.io.File;
 import java.io.IOException;
 
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws IOException, BiffException {
-		KassaView kassaView = new KassaView();
+		VerkoopController verkoopController = new VerkoopController();
 
 		/*ArtikelTekstLoadSave tekstLoadSave = new ArtikelTekstLoadSave();
 			tekstLoadSave.load();
