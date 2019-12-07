@@ -1,5 +1,9 @@
 package view;
 
+import controller.VerkoopController;
+import database.ArtikelDBContext;
+import database.factory.ArtikelDBStrategyFactory;
+import database.factory.LoadSaveStrategyFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
@@ -8,17 +12,31 @@ import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.Artikel;
-import view.domain.Controller;
+import model.Verkoop;
+import view.panels.PropertiesPane;
+//import view.domain.Controller;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
 
 public class KlantView {
 	private Stage stage = new Stage();
 
-	private Controller controller;
+	//private Controller controller;
 	private KlantViewPane borderPane;
 
-	public KlantView(){			
+	public KlantView(){
+		PropertiesPane propertiesPane = new PropertiesPane();
+		Properties properties = propertiesPane.getInstellingen();
+		ArtikelDBContext db = new ArtikelDBContext();
+		db.setDBStrategy(ArtikelDBStrategyFactory.createStrategy("InMemory"));
+		db.setLoadSaveStrategy(LoadSaveStrategyFactory.createStrategy(properties.getProperty("method")));
+		Verkoop verkoop = new Verkoop();
+		VerkoopController verkoopController = KassaMainPane.verkoopController;
+		//VerkoopPane verkoopPane = new VerkoopPane(verkoopController);
+		//verkoopController.setVerkoopPane(verkoopPane);
+
 		stage.setTitle("KLANT VIEW");
 		stage.setResizable(false);		
 		stage.setX(775);
@@ -26,6 +44,7 @@ public class KlantView {
 		Group root = new Group();
 		Scene scene = new Scene(root, 500, 500);
 		borderPane = new KlantViewPane();
+		verkoopController.setKlantView(borderPane);
 		borderPane.prefHeightProperty().bind(scene.heightProperty());
 		borderPane.prefWidthProperty().bind(scene.widthProperty());
 		root.getChildren().add(borderPane);
@@ -34,9 +53,9 @@ public class KlantView {
 		stage.show();
 	}
 
-	public void setController(Controller controller) {
+	/*public void setController(Controller controller) {
 		this.controller = controller;
-	}
+	}*/
 	public void setMemory(ArrayList<Artikel> artikels){
 		ObservableList<Artikel> observableArrayList =
 				FXCollections.observableArrayList(artikels);

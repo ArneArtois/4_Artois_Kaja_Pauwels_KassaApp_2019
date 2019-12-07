@@ -1,6 +1,7 @@
 package view;
 
 
+import controller.KlantViewController;
 import controller.VerkoopController;
 import database.ArtikelDBContext;
 import database.ArtikelDBInMemory;
@@ -28,19 +29,18 @@ import java.io.OutputStream;
 import java.util.*;
 
 public class KassaMainPane extends BorderPane {
+    //TODO Mag dit? Niet zeker?
+    public static VerkoopController verkoopController;
 	public KassaMainPane(){
 	    TabPane tabPane = new TabPane();
         PropertiesPane propertiesPane = new PropertiesPane();
         Tab instellingTab = new Tab("Instellingen", propertiesPane);
         Properties properties = propertiesPane.getInstellingen();
-        //VerkoopPane verkoopPane = new VerkoopPane();
         ArtikelDBContext db = new ArtikelDBContext();
         db.setDBStrategy(ArtikelDBStrategyFactory.createStrategy("InMemory"));
-        //ArtikelDBStrategy db = ArtikelDBStrategyFactory.createStrategy("InMemory");
-        //HashMap<Integer, Artikel> artikelenMap = db.loadArtikelen();
         db.setLoadSaveStrategy(LoadSaveStrategyFactory.createStrategy(properties.getProperty("method")));
         Verkoop verkoop = new Verkoop();
-        VerkoopController verkoopController = new VerkoopController(verkoop,db);
+        verkoopController = new VerkoopController(verkoop,db);
         VerkoopPane verkoopPane = new VerkoopPane(verkoopController);
         verkoopController.setVerkoopPane(verkoopPane);
 
@@ -65,27 +65,7 @@ public class KassaMainPane extends BorderPane {
         tabPane.getTabs().add(artikelTab);
         tabPane.getTabs().add(instellingTab);
         tabPane.getTabs().add(logTab);
-        //artikelen.sort(new ComparatorByOmschrijving());
 
-       /* verkoopPane.getCodeTextField().setOnAction(event -> {
-            int code = Integer.parseInt(verkoopPane.getCodeTextField().getText());
-
-            //verkoopPane.getErrorLabel().setText("Niet bestaande code");
-            Artikel a = db.get(code);
-            if(a != null) {
-                System.out.println(a.toString());
-                data.add(a);
-                verkoopPane.getTableView().setItems(data);
-                verkoopPane.getErrorLabel().setText(" ");
-                double bedrag = a.getVerkoopprijs();
-                verkoopPane.getPrijs().setText("Totale prijs: " + verkoopPane.addSom(bedrag));
-
-            } else {
-                System.out.println("a is null");
-                verkoopPane.getErrorLabel().setText("Niet bestaande code");
-            }
-            verkoopPane.getCodeTextField().clear();
-        });*/
 
 	    this.setCenter(tabPane);
 	}
