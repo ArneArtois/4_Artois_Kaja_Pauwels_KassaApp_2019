@@ -1,6 +1,5 @@
 package view.panels;
 
-import controller.KlantViewController;
 import controller.VerkoopController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,12 +7,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import model.Artikel;
-import view.KlantView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class VerkoopPane extends GridPane {
     private Label enterLabel = new Label("Geef de artikelcode in: ");

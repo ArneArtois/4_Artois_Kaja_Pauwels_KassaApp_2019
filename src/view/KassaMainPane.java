@@ -1,23 +1,16 @@
 package view;
 
 
-import controller.KlantViewController;
 import controller.VerkoopController;
 import database.ArtikelDBContext;
-import database.ArtikelDBInMemory;
-import database.ArtikelTekstLoadSave;
 import database.factory.ArtikelDBStrategyFactory;
 import database.factory.LoadSaveStrategyFactory;
-import database.strategy.ArtikelDBStrategy;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import model.Artikel;
-import model.ComparatorByOmschrijving;
 import model.VerkoopModel;
 import view.panels.ProductOverviewPane;
 import view.panels.PropertiesPane;
@@ -41,8 +34,8 @@ public class KassaMainPane extends BorderPane {
         db.setLoadSaveStrategy(LoadSaveStrategyFactory.createStrategy(properties.getProperty("method")));
         VerkoopModel verkoop = new VerkoopModel();
         verkoopController = new VerkoopController(verkoop,db);
+
         VerkoopPane verkoopPane = new VerkoopPane(verkoopController);
-        KlantView klantView = new KlantView(verkoopController);
         verkoopController.setVerkoopPane(verkoopPane);
 
         Tab kassaTab = new Tab("Kassa", verkoopPane);

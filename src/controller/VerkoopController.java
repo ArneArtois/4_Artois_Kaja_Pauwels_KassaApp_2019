@@ -4,6 +4,7 @@ import database.ArtikelDBContext;
 import model.Artikel;
 import model.VerkoopModel;
 import model.observer.Observer;
+import view.KlantView;
 import view.KlantViewPane;
 import view.panels.VerkoopPane;
 
@@ -12,6 +13,7 @@ import java.util.List;
 public class VerkoopController implements Observer {
     private VerkoopModel verkoopModel;
     private VerkoopPane verkoopPane;
+    private KlantView klantView;
     private KlantViewPane klantViewPane;
     private double totalePrijs = 0;
     private ArtikelDBContext context;
@@ -20,6 +22,7 @@ public class VerkoopController implements Observer {
         this.verkoopModel = verkoopModel;
         verkoopModel.registerObserver(this);
         this.context = context;
+        klantView = new KlantView(this);
     }
 
     public void setVerkoopPane(VerkoopPane verkoopPane) {
