@@ -67,6 +67,10 @@ public class VerkoopPane extends GridPane {
         this.errorLabel.setText("Artikel bestaat niet");
     }
 
+    public void artikelWelGevonden() {
+        this.errorLabel.setText("");
+    }
+
     /*public Label getPrijs() {
         return prijs;
     }
