@@ -56,7 +56,12 @@ public class VerkoopController implements Observer {
 
     public void codeEnter(int code) {
         Artikel a = context.get(code);
-        verkoopModel.addArtikel(a);
+        if(a != null) {
+            verkoopModel.addArtikel(a);
+        } else {
+            verkoopPane.artikelNietGevonden();
+        }
+
     }
 
     @Override

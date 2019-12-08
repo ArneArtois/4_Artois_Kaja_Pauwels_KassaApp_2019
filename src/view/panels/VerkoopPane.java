@@ -52,6 +52,10 @@ public class VerkoopPane extends GridPane {
         this.tableView.setItems(observableList);
     }
 
+    public void artikelNietGevonden() {
+        this.errorLabel.setText("Artikel bestaat niet");
+    }
+
     /*public Label getPrijs() {
         return prijs;
     }
