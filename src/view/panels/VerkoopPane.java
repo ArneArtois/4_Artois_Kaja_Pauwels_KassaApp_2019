@@ -13,7 +13,8 @@ import java.util.List;
 public class VerkoopPane extends GridPane {
     private Label enterLabel = new Label("Geef de artikelcode in: ");
     private TextField codeTextField = new TextField();
-    private Button submitBtn = new Button("Bevestig");
+    private Button onHold = new Button("Sla verkoop op");
+    private Button loadVerkoop = new Button("Zet verkoop terug");
     private Label errorLabel = new Label();
     private TableView<model.Artikel> tableView = new TableView<>();
     private Label prijs = new Label("Totale prijs: ");
@@ -41,6 +42,16 @@ public class VerkoopPane extends GridPane {
         this.add(prijs,0,4);
         codeTextField.setOnAction(event -> {
             controller.codeEnter(Integer.parseInt(codeTextField.getText()));
+            this.codeTextField.clear();
+        });
+        this.add(onHold, 1,1);
+        onHold.setOnAction(event -> {
+            controller.slaVerkoopOp();
+            this.prijs.setText("Totale prijs: ");
+        });
+        this.add(loadVerkoop, 1,2);
+        loadVerkoop.setOnAction(event -> {
+            controller.leesVerkoop();
         });
     }
 

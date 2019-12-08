@@ -1,6 +1,6 @@
 package model;
 
-public class Artikel {
+public class Artikel implements java.io.Serializable{
     private int code;
     private String omschrijving;
     private String artikelGroep;

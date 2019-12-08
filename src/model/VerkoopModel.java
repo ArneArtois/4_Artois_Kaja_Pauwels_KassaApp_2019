@@ -6,9 +6,9 @@ import model.observer.Subject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VerkoopModel implements Subject {
+public class VerkoopModel implements Subject, java.io.Serializable {
     private List<Artikel> artikelen;
-    private List<Observer> observers;
+    private transient List<Observer> observers;
 
     public VerkoopModel() {
         this.artikelen = new ArrayList<>();
@@ -17,6 +17,20 @@ public class VerkoopModel implements Subject {
 
     public List<Artikel> getArtikelen() {
         return this.artikelen;
+    }
+
+    public void volgendeVerkoop() {
+        this.artikelen.clear();
+        notifyObservers(null, this.artikelen);
+    }
+
+    public void laadVerkoop(VerkoopModel verkoop) {
+        if(verkoop == null) {
+            throw new IllegalArgumentException("Verkoop mag niet null zijn");
+        }
+
+        this.artikelen = verkoop.getArtikelen();
+        notifyObservers(null, this.artikelen);
     }
 
     public void addArtikel(Artikel a) {

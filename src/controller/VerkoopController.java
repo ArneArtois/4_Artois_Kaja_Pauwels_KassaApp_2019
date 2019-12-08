@@ -9,6 +9,7 @@ import view.KlantView;
 import view.KlantViewPane;
 import view.panels.VerkoopPane;
 
+import java.io.*;
 import java.util.List;
 
 public class VerkoopController implements Observer {
@@ -29,6 +30,31 @@ public class VerkoopController implements Observer {
         this.klantView = new KlantView(this);
         this.verkoopPane = new VerkoopPane(this);
         this.kassaView = new KassaView(this, context);
+    }
+
+    public void slaVerkoopOp() {
+        try(FileOutputStream fileOut = new FileOutputStream("src/bestanden/verkoop.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
+            out.writeObject(this.verkoopModel);
+            //Testing
+            System.out.println("Verkoop on hold gezet");
+            verkoopModel.volgendeVerkoop();
+        } catch (IOException e) {
+            throw new ControllerException(e.getMessage());
+        }
+    }
+
+    public void leesVerkoop() {
+        VerkoopModel verkoop = new VerkoopModel();
+        try(FileInputStream fileIn = new FileInputStream("src/bestanden/verkoop.ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn)) {
+            verkoop = (VerkoopModel) in.readObject();
+
+        } catch (IOException | ClassNotFoundException e) {
+            throw new ControllerException(e.getMessage());
+        }
+
+        this.verkoopModel.laadVerkoop(verkoop);
     }
 
     public void setVerkoopPane(VerkoopPane verkoopPane) {
@@ -66,8 +92,23 @@ public class VerkoopController implements Observer {
 
     @Override
     public void update(Artikel a, List<Artikel> artikelen) {
-        this.totalePrijs += a.getVerkoopprijs();
-        verkoopPane.updateDisplay(this.totalePrijs, artikelen);
-        klantViewPane.updateDisplay(this.totalePrijs, artikelen);
+        if(a != null) {
+            this.totalePrijs += a.getVerkoopprijs();
+        }
+
+        if(a != null) {
+            verkoopPane.updateDisplay(this.totalePrijs, artikelen);
+            klantViewPane.updateDisplay(this.totalePrijs, artikelen);
+        } else if(a == null && artikelen.isEmpty()) {
+            this.totalePrijs = 0;
+            verkoopPane.updateDisplay(this.totalePrijs, artikelen);
+            klantViewPane.updateDisplay(this.totalePrijs, artikelen);
+        } else {
+            for(Artikel artikel : artikelen) {
+                this.totalePrijs += artikel.getVerkoopprijs();
+            }
+            verkoopPane.updateDisplay(this.totalePrijs, artikelen);
+            klantViewPane.updateDisplay(this.totalePrijs, artikelen);
+        }
     }
 }
