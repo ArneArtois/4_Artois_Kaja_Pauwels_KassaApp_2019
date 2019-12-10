@@ -12,7 +12,7 @@ public class KassaView {
 		
 	public KassaView(VerkoopController verkoopController, ArtikelDBContext context){
 		stage.setTitle("KASSA VIEW");
-		stage.setResizable(false);		
+		stage.setResizable(false);
 		stage.setX(20);
 		stage.setY(20);
 		Group root = new Group();
@@ -22,7 +22,7 @@ public class KassaView {
 		borderPane.prefWidthProperty().bind(scene.widthProperty());
 		root.getChildren().add(borderPane);
 		stage.setScene(scene);
-		stage.sizeToScene();			
-		stage.show();		
+		stage.sizeToScene();
+		stage.show();
 	}
 }

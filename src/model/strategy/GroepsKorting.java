@@ -7,7 +7,7 @@ import java.util.List;
 public class GroepsKorting implements KortingStrategy {
 
     @Override
-    public double berekenPrijsMetKorting(List<Artikel> artikelen, String groep, double duurstePrijs, int percentage, double kortingBedrag) {
+    public double berekenPrijsMetKorting(List<Artikel> artikelen, String groep, int percentage, double kortingBedrag) {
         double prijs = 0;
         double percent = percentage / 100;
         for(Artikel a : artikelen) {

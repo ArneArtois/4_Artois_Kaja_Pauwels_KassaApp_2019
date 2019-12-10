@@ -16,9 +16,12 @@ public class VerkoopPane extends GridPane {
     private TextField codeTextField2 = new TextField();
     private Button onHold = new Button("Sla verkoop op");
     private Button loadVerkoop = new Button("Zet verkoop terug");
+    private Button afsluit = new Button("AFSLUIT");
     private Label errorLabel = new Label();
     private TableView<model.Artikel> tableView = new TableView<>();
     private Label prijs = new Label("Totale prijs: ");
+    private Label korting = new Label("Totale korting: ");
+    private Label bedrag = new Label("Totale bedrag: ");
     private VerkoopController verkoopController;
 
     TableColumn omschrCol = new TableColumn<model.Artikel, Object>("Omschrijving");
@@ -43,6 +46,8 @@ public class VerkoopPane extends GridPane {
         tableView.getColumns().addAll(omschrCol, prijsCol, aantalCol);
         this.add(tableView, 0,3);
         this.add(prijs,0,4);
+        this.add(korting, 0, 5);
+        this.add(bedrag, 0, 6);
         codeTextField.setOnAction(event -> {
             verkoopController.codeEnter(Integer.parseInt(codeTextField.getText()));
             this.codeTextField.clear();
@@ -54,19 +59,22 @@ public class VerkoopPane extends GridPane {
         this.add(onHold, 1,1);
         onHold.setOnAction(event -> {
             verkoopController.slaVerkoopOp();
-            this.prijs.setText("Totale prijs: ");
+            this.prijs.setText("Totale prijs:");
         });
         this.add(loadVerkoop, 1,2);
         loadVerkoop.setOnAction(event -> {
             this.prijs.setText("Totale prijs:");
             verkoopController.leesVerkoop();
         });
+        this.add(afsluit, 1, 3);
+        afsluit.setOnAction(event -> {
+            this.korting.setText("Totale korting:");
+            this.bedrag.setText("Totale bedrag:");
+        });
     }
 
     public void updateDisplay(double prijs, List<Artikel> artikelen) {
         this.prijs.setText("Totale prijs: " + prijs);
-
-
         ObservableList<Artikel> observableList =  FXCollections.observableArrayList(artikelen);
         this.tableView.setItems(observableList);
     }
