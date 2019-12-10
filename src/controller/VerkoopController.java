@@ -14,12 +14,14 @@ import java.io.*;
 import java.util.List;
 
 public class VerkoopController implements Observer {
-    private VerkoopModel verkoopModel;
-    private VerkoopPane verkoopPane;
-    private KlantView klantView;
-    private KlantViewPane klantViewPane;
     private ArtikelDBContext context;
+    private VerkoopModel verkoopModel;
+
+    private VerkoopPane verkoopPane;
+    private KlantViewPane klantViewPane;
+
     private KassaView kassaView;
+    private KlantView klantView;
 
     public VerkoopController() {
 
@@ -101,15 +103,7 @@ public class VerkoopController implements Observer {
     @Override
     public void update(Artikel a, List<Artikel> artikelen) {
         double totalePrijs = verkoopModel.getTotalePrijs();
-        if(a != null) {
-            verkoopPane.updateDisplay(totalePrijs, artikelen);
-            klantViewPane.updateDisplay(totalePrijs, artikelen);
-        } else if(a == null && artikelen.isEmpty()) {
-            verkoopPane.updateDisplay(totalePrijs, artikelen);
-            klantViewPane.updateDisplay(totalePrijs, artikelen);
-        } else {
-            verkoopPane.updateDisplay(totalePrijs, artikelen);
-            klantViewPane.updateDisplay(totalePrijs, artikelen);
-        }
+        verkoopPane.updateDisplay(totalePrijs, artikelen);
+        klantViewPane.updateDisplay(totalePrijs, artikelen);
     }
 }
