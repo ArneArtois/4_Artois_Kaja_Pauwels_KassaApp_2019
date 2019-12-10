@@ -32,6 +32,16 @@ public class VerkoopModel implements Subject, java.io.Serializable {
         this.artikelen = verkoop.getArtikelen();
         notifyObservers(null, this.artikelen);
     }
+    public double getTotalePrijs(){
+        double result = 0;
+        for(Artikel artikel: artikelen){
+            result += artikel.getVerkoopprijs();
+        }
+        result = result*100;
+        result = Math.round(result);
+        result = result/100;
+        return result;
+    }
 
     public void addArtikel(Artikel a) {
         if(a == null) {

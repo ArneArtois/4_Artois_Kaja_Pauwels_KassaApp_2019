@@ -16,6 +16,13 @@ public class Artikel implements java.io.Serializable{
         setVerkoopprijs(prijs);
         setInVoorraad(aantal);
     }
+    public Artikel(Artikel artikel) {
+        setCode(artikel.getCode());
+        setOmschrijving(artikel.getOmschrijving());
+        setArtikelGroep(artikel.getArtikelGroep());
+        setVerkoopprijs(artikel.getVerkoopprijs());
+        setInVoorraad(artikel.getInVoorraad());
+    }
 
     public int getAantalPerKeer() {
         return aantalPerKeer;
@@ -84,5 +91,9 @@ public class Artikel implements java.io.Serializable{
     public String toString() {
         //8,artikel8,gr2,18.5,10
         return code+","+omschrijving+","+artikelGroep+","+verkoopprijs+","+inVoorraad;
+    }
+
+    public void setAantalPerKeer(Integer value) {
+        this.aantalPerKeer = value;
     }
 }

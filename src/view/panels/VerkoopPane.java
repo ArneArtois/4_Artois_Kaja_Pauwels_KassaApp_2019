@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import model.Artikel;
+import view.KlantView;
 
 import java.util.List;
 
@@ -19,13 +20,14 @@ public class VerkoopPane extends GridPane {
     private Label errorLabel = new Label();
     private TableView<model.Artikel> tableView = new TableView<>();
     private Label prijs = new Label("Totale prijs: ");
-    private double som = 0;
+    private VerkoopController verkoopController;
 
     TableColumn omschrCol = new TableColumn<model.Artikel, Object>("Omschrijving");
     TableColumn prijsCol = new TableColumn("prijs");
     TableColumn aantalCol = new TableColumn("Aantal");
 
-    public VerkoopPane(VerkoopController controller) {
+    public VerkoopPane(VerkoopController verkoopController) {
+        this.verkoopController = verkoopController;
         this.add(enterLabel,0,0);
         this.add(codeTextField,0,1);
         this.add(codeTextField2, 0, 2);
@@ -43,21 +45,22 @@ public class VerkoopPane extends GridPane {
         this.add(tableView, 0,3);
         this.add(prijs,0,4);
         codeTextField.setOnAction(event -> {
-            controller.codeEnter(Integer.parseInt(codeTextField.getText()));
+            verkoopController.codeEnter(Integer.parseInt(codeTextField.getText()));
             this.codeTextField.clear();
         });
         codeTextField2.setOnAction(event -> {
-            controller.codeEnter2(Integer.parseInt(codeTextField2.getText()));
+            verkoopController.codeEnter2(Integer.parseInt(codeTextField2.getText()));
             this.codeTextField2.clear();
         });
         this.add(onHold, 1,1);
         onHold.setOnAction(event -> {
-            controller.slaVerkoopOp();
+            verkoopController.slaVerkoopOp();
             this.prijs.setText("Totale prijs: ");
         });
         this.add(loadVerkoop, 1,2);
         loadVerkoop.setOnAction(event -> {
-            controller.leesVerkoop();
+            this.prijs.setText("Totale prijs:");
+            verkoopController.leesVerkoop();
         });
     }
 
