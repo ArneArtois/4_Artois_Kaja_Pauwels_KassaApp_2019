@@ -14,13 +14,14 @@ import java.io.*;
 import java.util.List;
 
 public class VerkoopController implements Observer {
-    private VerkoopModel verkoopModel;
-    private VerkoopPane verkoopPane;
-    private KlantView klantView;
-    private KlantViewPane klantViewPane;
-    private double totalePrijs = 0;
     private ArtikelDBContext context;
+    private VerkoopModel verkoopModel;
+
+    private VerkoopPane verkoopPane;
+    private KlantViewPane klantViewPane;
+
     private KassaView kassaView;
+    private KlantView klantView;
 
     public VerkoopController() {
 
@@ -40,10 +41,6 @@ public class VerkoopController implements Observer {
             //Testing
             System.out.println("Verkoop on hold gezet");
             verkoopModel.volgendeVerkoop();
-            this.verkoopModel = new VerkoopModel();
-            this.totalePrijs = 0;
-            this.verkoopModel.registerObserver(this);
-            //verkoopModel.volgendeVerkoop();
         } catch (IOException e) {
             throw new ControllerException(e.getMessage());
         }
@@ -51,6 +48,7 @@ public class VerkoopController implements Observer {
 
     public void leesVerkoop() {
         VerkoopModel verkoop;
+
         try(FileInputStream fileIn = new FileInputStream("src/bestanden/verkoop.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn)) {
             verkoop = (VerkoopModel) in.readObject();
@@ -80,15 +78,9 @@ public class VerkoopController implements Observer {
         }
         this.klantViewPane = klantViewPane;
     }
-
-    public double getTotalePrijs() {
-        return this.totalePrijs;
-    }
-
     public void codeEnter(int code) {
         Artikel a = context.get(code);
         if(a != null) {
-            this.totalePrijs += a.getVerkoopprijs();
             verkoopModel.addArtikel(a);
             verkoopPane.artikelWelGevonden();
         } else {
@@ -96,10 +88,9 @@ public class VerkoopController implements Observer {
         }
     }
 
-    public void codeEnter2(int code) {
+    public void codeRemove(int code) {
         Artikel a = context.get(code);
         if(a != null && verkoopModel.getArtikelen().contains(a)) {
-            this.totalePrijs -= a.getVerkoopprijs();
             verkoopModel.removeArtikel(a);
             verkoopPane.artikelWelGevonden();
         } else {
@@ -111,19 +102,8 @@ public class VerkoopController implements Observer {
 
     @Override
     public void update(Artikel a, List<Artikel> artikelen) {
-        if(a != null) {
-            verkoopPane.updateDisplay(this.totalePrijs, artikelen);
-            klantViewPane.updateDisplay(this.totalePrijs, artikelen);
-        } else if(a == null && artikelen.isEmpty()) {
-            this.totalePrijs = 0;
-            verkoopPane.updateDisplay(this.totalePrijs, artikelen);
-            klantViewPane.updateDisplay(this.totalePrijs, artikelen);
-        } else {
-            for(Artikel artikel : artikelen) {
-                this.totalePrijs += artikel.getVerkoopprijs();
-            }
-            verkoopPane.updateDisplay(this.totalePrijs, artikelen);
-            klantViewPane.updateDisplay(this.totalePrijs, artikelen);
-        }
+        double totalePrijs = verkoopModel.getTotalePrijs();
+        verkoopPane.updateDisplay(totalePrijs, artikelen);
+        klantViewPane.updateDisplay(totalePrijs, artikelen);
     }
 }

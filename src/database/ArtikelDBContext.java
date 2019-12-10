@@ -65,7 +65,10 @@ public class ArtikelDBContext {
         if(code < 0) {
             throw new IllegalArgumentException("The given code cannot be less than zero");
         }
-        return this.db.search(code);
+        Artikel artikel = this.db.search(code);
+        db.cart().add(artikel);
+        return artikel;
+
     }
 
     public void save(List<Artikel> artikelen) {
