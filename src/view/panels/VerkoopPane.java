@@ -7,7 +7,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import model.Artikel;
-import view.KlantView;
 
 import java.util.List;
 
@@ -49,7 +48,7 @@ public class VerkoopPane extends GridPane {
             this.codeTextField.clear();
         });
         codeTextField2.setOnAction(event -> {
-            verkoopController.codeEnter2(Integer.parseInt(codeTextField2.getText()));
+            verkoopController.codeRemove(Integer.parseInt(codeTextField2.getText()));
             this.codeTextField2.clear();
         });
         this.add(onHold, 1,1);

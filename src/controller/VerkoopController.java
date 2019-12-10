@@ -88,7 +88,7 @@ public class VerkoopController implements Observer {
         }
     }
 
-    public void codeEnter2(int code) {
+    public void codeRemove(int code) {
         Artikel a = context.get(code);
         if(a != null && verkoopModel.getArtikelen().contains(a)) {
             verkoopModel.removeArtikel(a);
