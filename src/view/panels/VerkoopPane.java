@@ -20,6 +20,7 @@ public class VerkoopPane extends GridPane {
     private TableView<model.Artikel> tableView = new TableView<>();
     private Label prijs = new Label("Totale prijs: ");
     private double som = 0;
+    private Label deleteLabel = new Label("Verwijder een artikel");
 
     TableColumn omschrCol = new TableColumn<model.Artikel, Object>("Omschrijving");
     TableColumn prijsCol = new TableColumn("prijs");
@@ -29,6 +30,7 @@ public class VerkoopPane extends GridPane {
         this.add(enterLabel,0,0);
         this.add(codeTextField,0,1);
         this.add(codeTextField2, 0, 2);
+
         this.add(errorLabel, 1, 0);
         omschrCol.setCellValueFactory(
                 new PropertyValueFactory<Artikel,String>("omschrijving")

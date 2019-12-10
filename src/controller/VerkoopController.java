@@ -40,13 +40,17 @@ public class VerkoopController implements Observer {
             //Testing
             System.out.println("Verkoop on hold gezet");
             verkoopModel.volgendeVerkoop();
+            this.verkoopModel = new VerkoopModel();
+            this.totalePrijs = 0;
+            this.verkoopModel.registerObserver(this);
+            //verkoopModel.volgendeVerkoop();
         } catch (IOException e) {
             throw new ControllerException(e.getMessage());
         }
     }
 
     public void leesVerkoop() {
-        VerkoopModel verkoop = new VerkoopModel();
+        VerkoopModel verkoop;
         try(FileInputStream fileIn = new FileInputStream("src/bestanden/verkoop.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn)) {
             verkoop = (VerkoopModel) in.readObject();
