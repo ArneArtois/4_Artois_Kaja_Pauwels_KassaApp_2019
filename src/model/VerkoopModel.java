@@ -41,6 +41,14 @@ public class VerkoopModel implements Subject, java.io.Serializable {
         notifyObservers(a, this.artikelen);
     }
 
+    public void removeArtikel(Artikel a) {
+        if(a == null) {
+            throw new IllegalArgumentException("Artikel mag niet leeg zijn");
+        }
+        this.artikelen.remove(a);
+        notifyObservers(a, this.artikelen);
+    }
+
     @Override
     public void registerObserver(Observer o) {
         if(o == null) {

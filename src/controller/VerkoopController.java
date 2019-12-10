@@ -1,6 +1,7 @@
 package controller;
 
 import database.ArtikelDBContext;
+import database.strategy.ArtikelDBStrategy;
 import model.Artikel;
 import model.VerkoopModel;
 import model.observer.Observer;
@@ -83,20 +84,29 @@ public class VerkoopController implements Observer {
     public void codeEnter(int code) {
         Artikel a = context.get(code);
         if(a != null) {
+            this.totalePrijs += a.getVerkoopprijs();
             verkoopModel.addArtikel(a);
             verkoopPane.artikelWelGevonden();
         } else {
             verkoopPane.artikelNietGevonden();
         }
-
     }
+
+    public void codeEnter2(int code) {
+        Artikel a = context.get(code);
+        if(a != null && verkoopModel.getArtikelen().contains(a)) {
+            this.totalePrijs -= a.getVerkoopprijs();
+            verkoopModel.removeArtikel(a);
+            verkoopPane.artikelWelGevonden();
+        } else {
+            verkoopPane.artikelNietGevonden();
+        }
+    }
+
+
 
     @Override
     public void update(Artikel a, List<Artikel> artikelen) {
-        if(a != null) {
-            this.totalePrijs += a.getVerkoopprijs();
-        }
-
         if(a != null) {
             verkoopPane.updateDisplay(this.totalePrijs, artikelen);
             klantViewPane.updateDisplay(this.totalePrijs, artikelen);

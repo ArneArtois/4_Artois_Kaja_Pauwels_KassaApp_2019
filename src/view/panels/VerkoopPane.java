@@ -13,6 +13,7 @@ import java.util.List;
 public class VerkoopPane extends GridPane {
     private Label enterLabel = new Label("Geef de artikelcode in: ");
     private TextField codeTextField = new TextField();
+    private TextField codeTextField2 = new TextField();
     private Button onHold = new Button("Sla verkoop op");
     private Button loadVerkoop = new Button("Zet verkoop terug");
     private Label errorLabel = new Label();
@@ -27,7 +28,8 @@ public class VerkoopPane extends GridPane {
     public VerkoopPane(VerkoopController controller) {
         this.add(enterLabel,0,0);
         this.add(codeTextField,0,1);
-        this.add(errorLabel, 0, 2);
+        this.add(codeTextField2, 0, 2);
+        this.add(errorLabel, 1, 0);
         omschrCol.setCellValueFactory(
                 new PropertyValueFactory<Artikel,String>("omschrijving")
         );
@@ -43,6 +45,10 @@ public class VerkoopPane extends GridPane {
         codeTextField.setOnAction(event -> {
             controller.codeEnter(Integer.parseInt(codeTextField.getText()));
             this.codeTextField.clear();
+        });
+        codeTextField2.setOnAction(event -> {
+            controller.codeEnter2(Integer.parseInt(codeTextField2.getText()));
+            this.codeTextField2.clear();
         });
         this.add(onHold, 1,1);
         onHold.setOnAction(event -> {
