@@ -66,7 +66,7 @@ public class VerkoopPane extends GridPane {
         });
         this.add(afsluit, 1, 3);
         afsluit.setOnAction(event -> {
-            this.korting.setText("De korting is: ");
+            this.korting.setText("Totale korting: ");
         });
     }
 
