@@ -13,7 +13,7 @@ import java.util.List;
 public class VerkoopPane extends GridPane {
     private Label enterLabel = new Label("Geef de artikelcode in: ");
     private TextField codeTextField = new TextField();
-    private TextField codeTextField2 = new TextField();
+    private TextField codeTextFieldRemove = new TextField();
     private Button onHold = new Button("Sla verkoop op");
     private Button loadVerkoop = new Button("Zet verkoop terug");
     private Button afsluit = new Button("AFSLUIT");
@@ -32,7 +32,7 @@ public class VerkoopPane extends GridPane {
         this.verkoopController = verkoopController;
         this.add(enterLabel,0,0);
         this.add(codeTextField,0,1);
-        this.add(codeTextField2, 0, 2);
+        this.add(codeTextFieldRemove, 0, 2);
         this.add(errorLabel, 1, 0);
         omschrCol.setCellValueFactory(
                 new PropertyValueFactory<Artikel,String>("omschrijving")
@@ -52,24 +52,20 @@ public class VerkoopPane extends GridPane {
             verkoopController.codeEnter(Integer.parseInt(codeTextField.getText()));
             this.codeTextField.clear();
         });
-        codeTextField2.setOnAction(event -> {
-            verkoopController.codeRemove(Integer.parseInt(codeTextField2.getText()));
-            this.codeTextField2.clear();
+        codeTextFieldRemove.setOnAction(event -> {
+            verkoopController.codeRemove(Integer.parseInt(codeTextFieldRemove.getText()));
+            this.codeTextFieldRemove.clear();
         });
         this.add(onHold, 1,1);
         onHold.setOnAction(event -> {
             verkoopController.slaVerkoopOp();
-            this.prijs.setText("Totale prijs:");
         });
         this.add(loadVerkoop, 1,2);
         loadVerkoop.setOnAction(event -> {
-            this.prijs.setText("Totale prijs:");
             verkoopController.leesVerkoop();
         });
         this.add(afsluit, 1, 3);
         afsluit.setOnAction(event -> {
-            this.korting.setText("Totale korting:");
-            this.bedrag.setText("Totale bedrag:");
         });
     }
 

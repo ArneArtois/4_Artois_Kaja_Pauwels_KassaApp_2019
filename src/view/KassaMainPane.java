@@ -25,13 +25,15 @@ public class KassaMainPane extends BorderPane {
     //TODO Mag dit? Niet zeker?
     public VerkoopController verkoopController;
     public ArtikelDBContext context;
-	public KassaMainPane(VerkoopController verkoopController, ArtikelDBContext context){
+    private Properties properties;
+    private PropertiesPane propertiesPane;
+	public KassaMainPane(VerkoopController verkoopController, ArtikelDBContext context, PropertiesPane propertiesPane, Properties properties){
 	    this.context = context;
+	    this.propertiesPane = propertiesPane;
 	    this.verkoopController = verkoopController;
+	    this.properties = properties;
 	    TabPane tabPane = new TabPane();
-        PropertiesPane propertiesPane = new PropertiesPane();
         Tab instellingTab = new Tab("Instellingen", propertiesPane);
-        Properties properties = propertiesPane.getInstellingen();
         this.context.setDBStrategy(ArtikelDBStrategyFactory.createStrategy("InMemory"));
         this.context.setLoadSaveStrategy(LoadSaveStrategyFactory.createStrategy(properties.getProperty("method")));
 

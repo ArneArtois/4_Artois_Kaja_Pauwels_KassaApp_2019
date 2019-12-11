@@ -5,13 +5,16 @@ import database.strategy.ArtikelDBStrategy;
 import model.Artikel;
 import model.VerkoopModel;
 import model.observer.Observer;
+import model.state.*;
 import view.KassaView;
 import view.KlantView;
 import view.KlantViewPane;
+import view.panels.PropertiesPane;
 import view.panels.VerkoopPane;
 
 import java.io.*;
 import java.util.List;
+import java.util.Properties;
 
 public class VerkoopController implements Observer {
     private ArtikelDBContext context;
@@ -19,9 +22,12 @@ public class VerkoopController implements Observer {
 
     private VerkoopPane verkoopPane;
     private KlantViewPane klantViewPane;
+    private PropertiesPane propertiesPane;
 
     private KassaView kassaView;
     private KlantView klantView;
+
+    private Properties properties;
 
     public VerkoopController() {
 
@@ -29,9 +35,13 @@ public class VerkoopController implements Observer {
         verkoopModel.registerObserver(this);
         this.context = new ArtikelDBContext();
 
+        this.propertiesPane = new PropertiesPane();
         this.klantView = new KlantView(this);
         this.verkoopPane = new VerkoopPane(this);
-        this.kassaView = new KassaView(this, context);
+
+
+        this.properties = propertiesPane.getInstellingen();
+        this.kassaView = new KassaView(this, context, propertiesPane, properties);
     }
 
     public void slaVerkoopOp() {
