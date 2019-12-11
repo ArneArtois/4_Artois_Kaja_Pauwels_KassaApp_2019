@@ -11,7 +11,7 @@ public class GroepsKorting implements KortingStrategy {
         double prijs = 0;
         double percent = percentage / 100;
         for(Artikel a : artikelen) {
-            if(a.getArtikelGroep().equals(groep)) {
+            if(a.getArtikelGroep().equals("gr"+groep)) {
                 prijs += a.getVerkoopprijs();
             }
         }

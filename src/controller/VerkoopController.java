@@ -3,9 +3,11 @@ package controller;
 import database.ArtikelDBContext;
 import database.strategy.ArtikelDBStrategy;
 import model.Artikel;
+import model.KortingFactory;
 import model.VerkoopModel;
 import model.observer.Observer;
 //import model.state.*;
+import model.strategy.KortingStrategy;
 import view.KassaView;
 import view.KlantView;
 import view.KlantViewPane;
@@ -28,6 +30,7 @@ public class VerkoopController implements Observer {
     private KlantView klantView;
 
     private Properties properties;
+    private KortingStrategy kortingStrategy;
 
     public VerkoopController() {
 
@@ -98,6 +101,16 @@ public class VerkoopController implements Observer {
         } else {
             verkoopPane.artikelNietGevonden();
         }
+    }
+
+    public double getKorting() {
+        String type = properties.getProperty("kortingsType");
+        String groep = properties.getProperty("groep");
+        int percentage = Integer.parseInt(properties.getProperty("groep"));
+        double minBedrag = Double.parseDouble(properties.getProperty("groep"));
+        this.kortingStrategy = KortingFactory.createStrategy(type);
+        System.out.println(kortingStrategy);
+        return this.kortingStrategy.berekenKorting(verkoopModel.getArtikelen(), groep, percentage, minBedrag);
     }
 
 
