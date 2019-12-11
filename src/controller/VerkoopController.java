@@ -70,14 +70,6 @@ public class VerkoopController implements Observer {
         this.verkoopModel.laadVerkoop(verkoop);
     }
 
-    public void setVerkoopPane(VerkoopPane verkoopPane) {
-        if(verkoopPane == null) {
-            throw new IllegalArgumentException("VerkoopPane mag niet leeg zijn");
-        }
-
-        this.verkoopPane = verkoopPane;
-    }
-
     public VerkoopPane getVerkoopPane() {
         return verkoopPane;
     }
