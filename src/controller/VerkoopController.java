@@ -1,11 +1,9 @@
 package controller;
 
 import database.ArtikelDBContext;
-import database.strategy.ArtikelDBStrategy;
 import model.Artikel;
 import model.VerkoopModel;
 import model.observer.Observer;
-import model.state.*;
 import view.KassaView;
 import view.KlantView;
 import view.KlantViewPane;
