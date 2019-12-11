@@ -9,7 +9,7 @@ import java.util.List;
 public class DuursteKorting implements KortingStrategy {
 
     @Override
-    public double berekenKorting(List<Artikel> artikelen, String groep, int kortingsPercentage, double minKortingBedrag) {
+    public double berekenKorting(List<Artikel> artikelen, String groep, double kortingsPercentage, double minKortingBedrag) {
         double prijs = 0;
         double percent = kortingsPercentage / 100;
         Artikel max = Collections.max(artikelen, new Comparator<Artikel>() {

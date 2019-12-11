@@ -24,8 +24,11 @@ public class KlantViewPane extends GridPane {
     TableColumn prijsCol = new TableColumn("prijs");
     TableColumn aantalCol = new TableColumn("Aantal");
     Label prijs = new Label("Totale prijs: ");
+    private double prijsDouble = 0;
+    private VerkoopController verkoopController;
 
-    public KlantViewPane(){
+    public KlantViewPane(VerkoopController verkoopController){
+        this.verkoopController = verkoopController;
 
             omschrCol.setCellValueFactory(
                     new PropertyValueFactory<Artikel,String>("omschrijving")
@@ -47,6 +50,7 @@ public class KlantViewPane extends GridPane {
 
     public void updateDisplay(double prijs, List<Artikel> artikelen) {
         this.prijs.setText("Totale prijs: " + prijs);
+        this.prijsDouble = prijs;
         ObservableList<Artikel> observableList =  FXCollections.observableArrayList(convertToCustomerView(artikelen));
         this.tableView.setItems(observableList);
     }
@@ -70,5 +74,8 @@ public class KlantViewPane extends GridPane {
             }
         }
         return result;
+    }
+    public void afsluit(){
+        this.prijs.setText("this" + (prijsDouble - verkoopController.getKorting()));
     }
 }

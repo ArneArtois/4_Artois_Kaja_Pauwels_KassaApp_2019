@@ -39,7 +39,8 @@ public class VerkoopController implements Observer {
         this.context = new ArtikelDBContext();
 
         this.propertiesPane = new PropertiesPane();
-        this.klantView = new KlantView(this);
+        this.klantViewPane = new KlantViewPane(this);
+        this.klantView = new KlantView(this, klantViewPane);
         this.verkoopPane = new VerkoopPane(this);
 
 
@@ -111,7 +112,11 @@ public class VerkoopController implements Observer {
         double minBedrag = Double.parseDouble(properties.getProperty("bedrag"));
         this.kortingStrategy = KortingFactory.createStrategy(type);
         System.out.println(kortingStrategy);
+        System.out.println(this.kortingStrategy.berekenKorting(verkoopModel.getArtikelen(), groep, percentage, minBedrag));
         return this.kortingStrategy.berekenKorting(verkoopModel.getArtikelen(), groep, percentage, minBedrag);
+    }
+    public void afsluit(){
+        klantViewPane.afsluit();
     }
 
 

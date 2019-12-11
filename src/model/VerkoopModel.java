@@ -10,7 +10,6 @@ import java.util.List;
 public class VerkoopModel implements Subject, java.io.Serializable {
     private List<Artikel> artikelen;
     private transient List<Observer> observers;
-    private double prijs = 0;
 
     public VerkoopModel(VerkoopController verkoopController) {
         this.artikelen = new ArrayList<>();
@@ -21,18 +20,6 @@ public class VerkoopModel implements Subject, java.io.Serializable {
 
     public List<Artikel> getArtikelen() {
         return this.artikelen;
-    }
-
-    public double getPrijs() {
-        return this.prijs;
-    }
-
-    public void setPrijs(double prijs) {
-        if(prijs < 0) {
-            throw new IllegalArgumentException("Prijs mag niet negatief zijn");
-        }
-
-        this.prijs = prijs;
     }
 
 

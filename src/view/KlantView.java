@@ -24,7 +24,7 @@ public class KlantView {
 	private KlantViewPane borderPane;
 
 
-	public KlantView(VerkoopController verkoopController){
+	public KlantView(VerkoopController verkoopController, KlantViewPane klantViewPane){
 		PropertiesPane propertiesPane = new PropertiesPane();
 		Properties properties = propertiesPane.getInstellingen();
 		ArtikelDBContext db = new ArtikelDBContext();
@@ -39,22 +39,12 @@ public class KlantView {
 		stage.setY(20);
 		Group root = new Group();
 		Scene scene = new Scene(root, 500, 500);
-		borderPane = new KlantViewPane();
-		verkoopController.setKlantViewPane(borderPane);
-		borderPane.prefHeightProperty().bind(scene.heightProperty());
-		borderPane.prefWidthProperty().bind(scene.widthProperty());
-		root.getChildren().add(borderPane);
+		verkoopController.setKlantViewPane(klantViewPane);
+		klantViewPane.prefHeightProperty().bind(scene.heightProperty());
+		klantViewPane.prefWidthProperty().bind(scene.widthProperty());
+		root.getChildren().add(klantViewPane);
 		stage.setScene(scene);
 		stage.sizeToScene();
 		stage.show();
-	}
-
-	/*public void setController(Controller controller) {
-		this.controller = controller;
-	}*/
-	public void setMemory(ArrayList<Artikel> artikels){
-		ObservableList<Artikel> observableArrayList =
-				FXCollections.observableArrayList(artikels);
-		borderPane.getTableView().setItems(observableArrayList);
 	}
 }

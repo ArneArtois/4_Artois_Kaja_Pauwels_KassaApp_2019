@@ -23,6 +23,7 @@ public class VerkoopPane extends GridPane {
     private Label korting = new Label("Totale korting: ");
     private Label bedrag = new Label("Totale bedrag: ");
     private VerkoopController verkoopController;
+    private double prijsDouble = 0;
 
     TableColumn omschrCol = new TableColumn<model.Artikel, Object>("Omschrijving");
     TableColumn prijsCol = new TableColumn("prijs");
@@ -67,11 +68,14 @@ public class VerkoopPane extends GridPane {
         this.add(afsluit, 1, 3);
         afsluit.setOnAction(event -> {
             this.korting.setText("Totale korting: " + verkoopController.getKorting());
+            this.bedrag.setText("Totale bedrag: "+ (prijsDouble - verkoopController.getKorting()));
+            verkoopController.afsluit();
         });
     }
 
     public void updateDisplay(double prijs, List<Artikel> artikelen) {
         this.prijs.setText("Totale prijs: " + prijs);
+        this.prijsDouble = prijs;
         ObservableList<Artikel> observableList =  FXCollections.observableArrayList(artikelen);
         this.tableView.setItems(observableList);
     }

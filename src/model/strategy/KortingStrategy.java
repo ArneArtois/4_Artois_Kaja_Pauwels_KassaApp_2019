@@ -5,5 +5,5 @@ import model.Artikel;
 import java.util.List;
 
 public interface KortingStrategy {
-    double berekenKorting(List<Artikel> artikelen, String groep, int kortingsPercentage, double minKortingBedrag);
+    double berekenKorting(List<Artikel> artikelen, String groep, double kortingsPercentage, double minKortingBedrag);
 }
