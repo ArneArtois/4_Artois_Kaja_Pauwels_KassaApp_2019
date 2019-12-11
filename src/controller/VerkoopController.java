@@ -106,8 +106,9 @@ public class VerkoopController implements Observer {
     public double getKorting() {
         String type = properties.getProperty("kortingsType");
         String groep = properties.getProperty("groep");
-        int percentage = Integer.parseInt(properties.getProperty("groep"));
-        double minBedrag = Double.parseDouble(properties.getProperty("groep"));
+        //System.out.println(groep);
+        int percentage = Integer.parseInt(properties.getProperty("percentage"));
+        double minBedrag = Double.parseDouble(properties.getProperty("bedrag"));
         this.kortingStrategy = KortingFactory.createStrategy(type);
         System.out.println(kortingStrategy);
         return this.kortingStrategy.berekenKorting(verkoopModel.getArtikelen(), groep, percentage, minBedrag);
