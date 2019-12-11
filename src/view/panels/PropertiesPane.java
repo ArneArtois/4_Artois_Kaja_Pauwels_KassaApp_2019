@@ -28,6 +28,8 @@ public class PropertiesPane extends GridPane {
     TextField bedragField = new TextField();
     Label errorLabel = new Label();
     Properties properties = new Properties();
+    Label groepLabel = new Label("Voer een groep in: ");
+    TextField groepField = new TextField();
     InputStream is;
     OutputStream os;
     public PropertiesPane() {
@@ -61,6 +63,8 @@ public class PropertiesPane extends GridPane {
         this.add(percentageField,0,4);
         this.add(bedragLabel, 0,5);
         this.add(bedragField, 0,6);
+        this.add(groepLabel,0,7);
+        this.add(groepField,0,8);
         submitChoice.setOnAction(event -> {
             KortingStrategy korting = KortingFactory.createStrategy(kortingsCombo.getValue());
             //System.out.println(korting);
@@ -86,7 +90,12 @@ public class PropertiesPane extends GridPane {
                 if(!percentageField.getText().equals("")) {
                     properties.setProperty("percentage", percentageField.getText());
                 }
+
+                if(!groepField.getText().equals("")) {
+                    properties.setProperty("groep", groepField.getText());
+                }
                 properties.setProperty("kortingsType", kortingsCombo.getValue());
+
                 properties.store(os, "Instellingen van de KassaApp");
                 os.close();
 

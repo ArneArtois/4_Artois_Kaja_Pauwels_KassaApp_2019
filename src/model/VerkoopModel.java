@@ -35,6 +35,7 @@ public class VerkoopModel implements Subject, java.io.Serializable {
         this.prijs = prijs;
     }
 
+
     public void volgendeVerkoop() {
         this.artikelen.clear();
         notifyObservers(null, this.artikelen);

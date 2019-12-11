@@ -1,9 +1,11 @@
 package controller;
 
 import database.ArtikelDBContext;
+import database.strategy.ArtikelDBStrategy;
 import model.Artikel;
 import model.VerkoopModel;
 import model.observer.Observer;
+//import model.state.*;
 import view.KassaView;
 import view.KlantView;
 import view.KlantViewPane;
@@ -30,6 +32,7 @@ public class VerkoopController implements Observer {
     public VerkoopController() {
 
         this.verkoopModel = new VerkoopModel(this);
+        verkoopModel.registerObserver(this);
         this.context = new ArtikelDBContext();
 
         this.propertiesPane = new PropertiesPane();
@@ -66,6 +69,15 @@ public class VerkoopController implements Observer {
 
         this.verkoopModel.laadVerkoop(verkoop);
     }
+
+    public void setVerkoopPane(VerkoopPane verkoopPane) {
+        if(verkoopPane == null) {
+            throw new IllegalArgumentException("VerkoopPane mag niet leeg zijn");
+        }
+
+        this.verkoopPane = verkoopPane;
+    }
+
     public VerkoopPane getVerkoopPane() {
         return verkoopPane;
     }
@@ -95,6 +107,8 @@ public class VerkoopController implements Observer {
             verkoopPane.artikelNietGevonden();
         }
     }
+
+
 
     @Override
     public void update(Artikel a, List<Artikel> artikelen) {
