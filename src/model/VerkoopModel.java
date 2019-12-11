@@ -1,5 +1,6 @@
 package model;
 
+import controller.VerkoopController;
 import model.observer.Observer;
 import model.observer.Subject;
 
@@ -11,9 +12,11 @@ public class VerkoopModel implements Subject, java.io.Serializable {
     private transient List<Observer> observers;
     private double prijs = 0;
 
-    public VerkoopModel() {
+    public VerkoopModel(VerkoopController verkoopController) {
         this.artikelen = new ArrayList<>();
         this.observers = new ArrayList<>();
+
+        this.registerObserver(verkoopController);
     }
 
     public List<Artikel> getArtikelen() {

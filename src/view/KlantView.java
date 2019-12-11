@@ -30,7 +30,6 @@ public class KlantView {
 		ArtikelDBContext db = new ArtikelDBContext();
 		db.setDBStrategy(ArtikelDBStrategyFactory.createStrategy("InMemory"));
 		db.setLoadSaveStrategy(LoadSaveStrategyFactory.createStrategy(properties.getProperty("method")));
-		VerkoopModel verkoop = new VerkoopModel();
 		//VerkoopPane verkoopPane = new VerkoopPane(verkoopController);
 		//verkoopController.setVerkoopPane(verkoopPane);
 

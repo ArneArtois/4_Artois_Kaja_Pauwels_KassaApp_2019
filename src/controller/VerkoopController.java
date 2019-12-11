@@ -31,8 +31,7 @@ public class VerkoopController implements Observer {
 
     public VerkoopController() {
 
-        this.verkoopModel = new VerkoopModel();
-        verkoopModel.registerObserver(this);
+        this.verkoopModel = new VerkoopModel(this);
         this.context = new ArtikelDBContext();
 
         this.propertiesPane = new PropertiesPane();
@@ -107,8 +106,6 @@ public class VerkoopController implements Observer {
             verkoopPane.artikelNietGevonden();
         }
     }
-
-
 
     @Override
     public void update(Artikel a, List<Artikel> artikelen) {
