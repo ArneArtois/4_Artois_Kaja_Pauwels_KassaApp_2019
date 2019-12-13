@@ -70,6 +70,7 @@ public class VerkoopPane extends GridPane {
             this.korting.setText("Totale korting: " + verkoopController.getKorting());
             this.bedrag.setText("Totale bedrag: "+ (prijsDouble - verkoopController.getKorting()));
             verkoopController.afsluit();
+            verkoopController.printKassaTicket();
         });
     }
 

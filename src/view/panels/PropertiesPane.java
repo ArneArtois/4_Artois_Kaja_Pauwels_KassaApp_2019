@@ -32,6 +32,12 @@ public class PropertiesPane extends GridPane {
     TextField groepField = new TextField();
     InputStream is;
     OutputStream os;
+    Label headerLabel = new Label("Header toevoegen");
+    Label footerLabel = new Label("Footer toevoegen");
+    CheckBox footerCheck = new CheckBox();
+    CheckBox headerCheck = new CheckBox();
+    TextField headerText = new TextField();
+    TextField footerText = new TextField();
     public PropertiesPane() {
         try {
            is = new FileInputStream("src/bestanden/instellingen.properties");
@@ -56,7 +62,7 @@ public class PropertiesPane extends GridPane {
         this.add(keuzeLabel,0,0);
         this.add(tekstBox,0,1);
         this.add(excelBox,0,2);
-        this.add(submitChoice,1,8);
+        this.add(submitChoice,1,18);
         this.add(kortingsLabel, 2,0);
         this.add(kortingsCombo, 2,1);
         this.add(percentageLabel,0,3);
@@ -65,6 +71,14 @@ public class PropertiesPane extends GridPane {
         this.add(bedragField, 0,6);
         this.add(groepLabel,0,7);
         this.add(groepField,0,8);
+        this.add(headerCheck, 1,10);
+        this.add(headerLabel, 0,10);
+        this.add(headerText, 0,11);
+
+        this.add(footerCheck,1,13);
+        this.add(footerLabel,0,13);
+        this.add(footerText,0,14);
+
         submitChoice.setOnAction(event -> {
             KortingStrategy korting = KortingFactory.createStrategy(kortingsCombo.getValue());
             //System.out.println(korting);
@@ -94,6 +108,19 @@ public class PropertiesPane extends GridPane {
                 if(!groepField.getText().equals("")) {
                     properties.setProperty("groep", groepField.getText());
                 }
+
+                if(headerCheck.isSelected() && !headerText.getText().equals("")) {
+                    properties.setProperty("header", headerText.getText());
+                } else {
+                    properties.remove("header");
+                }
+
+                if(footerCheck.isSelected() && !footerText.getText().equals("")) {
+                    properties.setProperty("footer", footerText.getText());
+                } else {
+                    properties.remove("footer");
+                }
+
                 properties.setProperty("kortingsType", kortingsCombo.getValue());
 
                 properties.store(os, "Instellingen van de KassaApp");

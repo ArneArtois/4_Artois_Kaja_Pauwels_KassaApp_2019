@@ -5,6 +5,10 @@ import database.strategy.ArtikelDBStrategy;
 import model.Artikel;
 import model.KortingFactory;
 import model.VerkoopModel;
+import model.decorator.KassaTicket;
+import model.decorator.KassaTicketDecoratorFooter;
+import model.decorator.KassaTicketDecoratorHeader;
+import model.decorator.KassaTicketImplementation;
 import model.observer.Observer;
 //import model.state.*;
 import model.strategy.KortingStrategy;
@@ -29,6 +33,8 @@ public class VerkoopController implements Observer {
     private KassaView kassaView;
     private KlantView klantView;
 
+    private KassaTicket ticket = new KassaTicketImplementation();
+
     private Properties properties;
     private KortingStrategy kortingStrategy;
 
@@ -46,6 +52,19 @@ public class VerkoopController implements Observer {
 
         this.properties = propertiesPane.getInstellingen();
         this.kassaView = new KassaView(this, context, propertiesPane, properties);
+    }
+
+    public void printKassaTicket() {
+        String header = properties.getProperty("header");
+        String footer = properties.getProperty("footer");
+        if(header != null) {
+            ticket = new KassaTicketDecoratorHeader(ticket, header);
+        }
+
+        if(footer != null) {
+            ticket = new KassaTicketDecoratorFooter(ticket, footer);
+        }
+        System.out.println(ticket.print(verkoopModel.getArtikelen(), verkoopModel.getTotalePrijs()-getKorting()));
     }
 
     public void slaVerkoopOp() {
