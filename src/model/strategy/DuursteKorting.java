@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class DuursteKorting implements KortingStrategy {
+public class DuursteKorting extends KortingStrategy {
 
     @Override
     public double berekenKorting(List<Artikel> artikelen, String groep, double kortingsPercentage, double minKortingBedrag) {
@@ -30,7 +30,7 @@ public class DuursteKorting implements KortingStrategy {
                 return -1;
             }
         });
-       prijs = (percent * max.getVerkoopprijs());
+       prijs = round(percent * max.getVerkoopprijs());
        return prijs;
     }
 }

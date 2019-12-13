@@ -24,6 +24,8 @@ public class KlantViewPane extends GridPane {
     TableColumn prijsCol = new TableColumn("prijs");
     TableColumn aantalCol = new TableColumn("Aantal");
     Label prijs = new Label("Totale prijs: ");
+    Label korting = new Label();
+    Label teBetalen = new Label();
     private double prijsDouble = 0;
     private VerkoopController verkoopController;
 
@@ -42,6 +44,8 @@ public class KlantViewPane extends GridPane {
             tableView.getColumns().addAll(omschrCol, prijsCol, aantalCol);
             this.add(tableView, 0,3);
             this.add(prijs, 0,4);
+            this.add(korting,0,5);
+            this.add(teBetalen,0,6);
         }
 
         public TableView<model.Artikel> getTableView() {
@@ -76,6 +80,7 @@ public class KlantViewPane extends GridPane {
         return result;
     }
     public void afsluit(){
-        this.prijs.setText("this" + (prijsDouble - verkoopController.getKorting()));
+        this.korting.setText("Korting: " + verkoopController.getKorting());
+        this.teBetalen.setText("Te betalen: " + (prijsDouble - verkoopController.getKorting()));
     }
 }

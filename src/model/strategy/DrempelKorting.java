@@ -4,7 +4,7 @@ import model.Artikel;
 
 import java.util.List;
 
-public class DrempelKorting implements KortingStrategy {
+public class DrempelKorting extends KortingStrategy {
     @Override
     public double berekenKorting(List<Artikel> artikelen, String groep, double kortingsPercentage, double kortingBedrag) {
         double prijs = 0;
@@ -13,7 +13,8 @@ public class DrempelKorting implements KortingStrategy {
             prijs += a.getVerkoopprijs();
         }
         if(prijs>=kortingBedrag) {
-            return prijs * percent;
+            double waarde = prijs*percent;
+            return round(waarde);
         }
         return 0;
     }

@@ -4,18 +4,18 @@ import model.Artikel;
 
 import java.util.List;
 
-public class GroepsKorting implements KortingStrategy {
+public class GroepsKorting extends KortingStrategy {
 
     @Override
     public double berekenKorting(List<Artikel> artikelen, String groep, double percentage, double kortingBedrag) {
         double prijs = 0;
         double percent = percentage / 100;
         for(Artikel a : artikelen) {
-            if(a.getArtikelGroep().equals(groep)) {
+            if(a.getArtikelGroep().equals("gr" +groep)) {
                 prijs += a.getVerkoopprijs();
             }
         }
 
-        return (prijs * percent);
+        return round(prijs * percent);
     }
 }
