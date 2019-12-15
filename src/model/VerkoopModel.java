@@ -3,6 +3,7 @@ package model;
 import controller.VerkoopController;
 import model.observer.Observer;
 import model.observer.Subject;
+import model.verkoop.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +11,24 @@ import java.util.List;
 public class VerkoopModel implements Subject, java.io.Serializable {
     private List<Artikel> artikelen;
     private transient List<Observer> observers;
+    private State beeindigdState;
+    private State nietBetaaldState;
+    private State onHoldState;
+    private State newVerkoopState;
+    private State betaaldState;
+    private State genoegGeldState;
+    private State nietGenoegGeldState;
+
+    private State currentState = newVerkoopState;
 
     public VerkoopModel(VerkoopController verkoopController) {
+        newVerkoopState = new NewVerkoop(this);
+        beeindigdState = new Beeindigd(this);
+        nietBetaaldState = new NietBetaald(this);
+        onHoldState = new OnHoldVerkoop(this);
+        betaaldState = new Betaald(this);
+        genoegGeldState = new GenoegGeld(this);
+        nietGenoegGeldState = new NietGenoegGeld(this);
         this.artikelen = new ArrayList<>();
         this.observers = new ArrayList<>();
 
@@ -22,6 +39,53 @@ public class VerkoopModel implements Subject, java.io.Serializable {
         return this.artikelen;
     }
 
+    public State getGenoegGeldState() {
+        return genoegGeldState;
+    }
+
+    public State getNietGenoegGeldState() {
+        return nietGenoegGeldState;
+    }
+
+    public void setCurrentState(State state) {
+        this.currentState = state;
+    }
+
+    public void beeindigVerkoop() {
+        this.currentState.eindigVerkoop();
+    }
+
+    public void betaalVerkoop() {
+        this.currentState.betaal();
+    }
+
+    public void annuleerVerkoop() {
+        this.currentState.annuleer();
+    }
+
+    public State getBeeindigdState() {
+        return beeindigdState;
+    }
+
+    public State getNietBetaaldState() {
+        return nietBetaaldState;
+    }
+
+    public State getOnHoldState() {
+        return onHoldState;
+    }
+
+    public State getNewVerkoopState() {
+        return newVerkoopState;
+    }
+
+    public State getBetaaldState() {
+        return betaaldState;
+    }
+
+    public State getCurrentState() {
+        return currentState;
+    }
 
     public void volgendeVerkoop() {
         this.artikelen.clear();

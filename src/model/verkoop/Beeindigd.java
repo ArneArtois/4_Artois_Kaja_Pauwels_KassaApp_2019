@@ -1,15 +1,13 @@
 package model.verkoop;
 
 import controller.VerkoopController;
+import model.VerkoopModel;
 
 public class Beeindigd implements State {
-    private VerkoopController verkoopController;
+    private VerkoopModel model;
 
-    public Beeindigd(VerkoopController verkoopController) {
-        setVerkoopController(verkoopController);
+    public Beeindigd(VerkoopModel model) {
+        this.model = model;
     }
 
-    public void setVerkoopController(VerkoopController verkoopController) {
-        this.verkoopController = verkoopController;
-    }
 }

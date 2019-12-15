@@ -1,21 +1,21 @@
 package model.verkoop;
 
 import controller.VerkoopController;
+import model.VerkoopModel;
 
 public class NietBetaald implements State {
-    private VerkoopController verkoopController;
+    private VerkoopModel model;
 
-    public NietBetaald(VerkoopController verkoopController)
-    {setVerkoopController(verkoopController);}
-
-    public void setVerkoopController(VerkoopController verkoopController) {
-        this.verkoopController = verkoopController;
+    public NietBetaald(VerkoopModel model)
+    {this.model = model;
     }
+
     @Override
     public void betaal(){
-
+        model.setCurrentState(model.getBetaaldState());
     }
     @Override
     public void annuleer(){
+        model.setCurrentState(model.getNewVerkoopState());
     }
 }

@@ -1,18 +1,16 @@
 package model.verkoop;
 
-import controller.VerkoopController;
 import model.VerkoopModel;
 
-public class Betaald implements State {
+public class GeenGeld implements State {
     private VerkoopModel model;
 
-    public Betaald(VerkoopModel model)
-    {
+    public GeenGeld(VerkoopModel model) {
         this.model = model;
     }
 
     @Override
-    public void eindigVerkoop() {
+    public void annuleer() {
         model.setCurrentState(model.getBeeindigdState());
     }
 }

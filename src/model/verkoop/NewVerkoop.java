@@ -1,19 +1,27 @@
 package model.verkoop;
 
 import controller.VerkoopController;
+import model.VerkoopModel;
 
 public class NewVerkoop implements State {
-    private VerkoopController verkoopController;
+    private VerkoopModel verkoop;
 
-    public NewVerkoop(VerkoopController verkoopController) {
-        setVerkoopController(verkoopController);
+    public NewVerkoop(VerkoopModel model) {
+        this.verkoop = model;
+        //setVerkoopController(verkoopController);
     }
 
-    public void setVerkoopController(VerkoopController verkoopController) {
+   /* public void setVerkoopController(VerkoopController verkoopController) {
         this.verkoopController = verkoopController;
+    }*/
+
+    @Override
+    public void genoegGeld() {
+        verkoop.setCurrentState(verkoop.getGenoegGeldState());
     }
 
     @Override
-    public void reset() {
+    public void onHold() {
+        verkoop.setCurrentState(verkoop.getOnHoldState());
     }
 }

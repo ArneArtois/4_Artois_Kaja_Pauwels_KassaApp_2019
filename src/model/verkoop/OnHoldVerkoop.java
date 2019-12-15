@@ -1,16 +1,13 @@
 package model.verkoop;
 
 import controller.VerkoopController;
+import model.VerkoopModel;
 
 public class OnHoldVerkoop implements State {
-    private VerkoopController verkoopController;
+    private VerkoopModel model;
 
-    public OnHoldVerkoop(VerkoopController verkoopController) {
-        setVerkoopController(verkoopController);
-    }
-
-    public void setVerkoopController(VerkoopController verkoopController) {
-        this.verkoopController = verkoopController;
+    public OnHoldVerkoop(VerkoopModel model) {
+        this.model = model;
     }
 
     @Override
