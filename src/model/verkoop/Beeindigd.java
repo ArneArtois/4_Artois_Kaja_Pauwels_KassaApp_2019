@@ -10,4 +10,9 @@ public class Beeindigd implements State {
         this.model = model;
     }
 
+    @Override
+    public void volgendeVerkoop() {
+        model.setCurrentState(model.getNewVerkoopState());
+        model.volgendeVerkoop();
+    }
 }

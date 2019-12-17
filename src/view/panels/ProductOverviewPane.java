@@ -1,5 +1,6 @@
 package view.panels;
 
+import controller.VerkoopController;
 import database.ArtikelDBContext;
 import database.ArtikelTekstLoadSave;
 import database.factory.ArtikelDBStrategyFactory;
@@ -26,10 +27,11 @@ import java.util.Properties;
 
 public class ProductOverviewPane extends GridPane {
 	private TableView<Artikel> table;
-
+	private VerkoopController controller;
 	
 	
-	public ProductOverviewPane() {
+	public ProductOverviewPane(VerkoopController controller) {
+	    this.controller = controller;
 		this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
         this.setHgap(5);

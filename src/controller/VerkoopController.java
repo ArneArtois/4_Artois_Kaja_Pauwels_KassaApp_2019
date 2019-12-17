@@ -15,6 +15,7 @@ import model.strategy.KortingStrategy;
 import view.KassaView;
 import view.KlantView;
 import view.KlantViewPane;
+import view.panels.ProductOverviewPane;
 import view.panels.PropertiesPane;
 import view.panels.VerkoopPane;
 
@@ -29,6 +30,7 @@ public class VerkoopController implements Observer {
     private VerkoopPane verkoopPane;
     private KlantViewPane klantViewPane;
     private PropertiesPane propertiesPane;
+    private ProductOverviewPane overviewPane;
 
     private KassaView kassaView;
     private KlantView klantView;
@@ -48,7 +50,7 @@ public class VerkoopController implements Observer {
         this.klantViewPane = new KlantViewPane(this);
         this.klantView = new KlantView(this, klantViewPane);
         this.verkoopPane = new VerkoopPane(this);
-
+        this.overviewPane = new ProductOverviewPane(this);
 
         this.properties = propertiesPane.getInstellingen();
         this.kassaView = new KassaView(this, context, propertiesPane, properties);
@@ -136,6 +138,13 @@ public class VerkoopController implements Observer {
     }
     public void afsluit(){
         klantViewPane.afsluit();
+    }
+
+    public void eindigVerkoop() {
+            this.printKassaTicket();
+            verkoopModel.getCurrentState().volgendeVerkoop();
+
+
     }
 
 

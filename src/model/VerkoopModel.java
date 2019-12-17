@@ -19,10 +19,11 @@ public class VerkoopModel implements Subject, java.io.Serializable {
     private State genoegGeldState;
     private State nietGenoegGeldState;
 
-    private State currentState = newVerkoopState;
+    private State currentState;
 
     public VerkoopModel(VerkoopController verkoopController) {
         newVerkoopState = new NewVerkoop(this);
+        this.currentState = newVerkoopState;
         beeindigdState = new Beeindigd(this);
         nietBetaaldState = new NietBetaald(this);
         onHoldState = new OnHoldVerkoop(this);
@@ -54,6 +55,7 @@ public class VerkoopModel implements Subject, java.io.Serializable {
     public void beeindigVerkoop() {
         this.currentState.eindigVerkoop();
     }
+
 
     public void betaalVerkoop() {
         this.currentState.betaal();

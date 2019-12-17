@@ -14,5 +14,6 @@ public class Betaald implements State {
     @Override
     public void eindigVerkoop() {
         model.setCurrentState(model.getBeeindigdState());
+        model.volgendeVerkoop();
     }
 }

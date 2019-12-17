@@ -24,6 +24,7 @@ public class VerkoopPane extends GridPane {
     private Label bedrag = new Label("Totale bedrag: ");
     private VerkoopController verkoopController;
     private double prijsDouble = 0;
+    private Button betaaldBtn = new Button("BETAALD");
 
     TableColumn omschrCol = new TableColumn<model.Artikel, Object>("Omschrijving");
     TableColumn prijsCol = new TableColumn("prijs");
@@ -70,7 +71,12 @@ public class VerkoopPane extends GridPane {
             this.korting.setText("Totale korting: " + verkoopController.getKorting());
             this.bedrag.setText("Totale bedrag: "+ (prijsDouble - verkoopController.getKorting()));
             verkoopController.afsluit();
-            verkoopController.printKassaTicket();
+            //verkoopController.printKassaTicket();
+        });
+
+        this.add(betaaldBtn,1,4);
+        betaaldBtn.setOnAction(event -> {
+            verkoopController.eindigVerkoop();
         });
     }
 
