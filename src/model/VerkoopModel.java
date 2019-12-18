@@ -40,6 +40,20 @@ public class VerkoopModel implements Subject, java.io.Serializable {
         return this.artikelen;
     }
 
+    public Artikel getArtikel(int code) {
+        Artikel a = null;
+        if (code < 0) {
+            throw new IllegalArgumentException("Code mag niet negatief zijn");
+        }
+
+        for(Artikel art : artikelen) {
+            if(art.getCode() == code) {
+                a = art;
+            }
+        }
+        return a;
+    }
+
     public State getGenoegGeldState() {
         return genoegGeldState;
     }
@@ -57,13 +71,15 @@ public class VerkoopModel implements Subject, java.io.Serializable {
     }
 
 
-    public void betaalVerkoop() {
-        this.currentState.betaal();
-    }
+   /* public void betaalVerkoop() {
+        this.currentState.betaal(this.getArtikelen());
+    }*/
 
     public void annuleerVerkoop() {
         this.currentState.annuleer();
     }
+
+
 
     public State getBeeindigdState() {
         return beeindigdState;
@@ -101,6 +117,15 @@ public class VerkoopModel implements Subject, java.io.Serializable {
 
         this.artikelen = verkoop.getArtikelen();
         notifyObservers(null, this.artikelen);
+    }
+
+    public int getTotaalAantal() {
+        int aantal = 0;
+        for(Artikel a : this.artikelen) {
+            aantal += a.getAantalPerKeer();
+        }
+
+        return aantal;
     }
 
     public double getTotalePrijs(){

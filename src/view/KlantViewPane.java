@@ -27,6 +27,7 @@ public class KlantViewPane extends GridPane {
     Label korting = new Label();
     Label teBetalen = new Label();
     private double prijsDouble = 0;
+    private Button betaal = new Button("Betalen");
     private VerkoopController verkoopController;
 
     public KlantViewPane(VerkoopController verkoopController){
@@ -46,6 +47,10 @@ public class KlantViewPane extends GridPane {
             this.add(prijs, 0,4);
             this.add(korting,0,5);
             this.add(teBetalen,0,6);
+            this.add(betaal,0,7);
+            this.betaal.setOnAction(event -> {
+                verkoopController.betaalVerkoop();
+            });
         }
 
         public TableView<model.Artikel> getTableView() {

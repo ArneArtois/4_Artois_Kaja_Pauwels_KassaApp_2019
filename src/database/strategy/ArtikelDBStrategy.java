@@ -14,4 +14,5 @@ public interface ArtikelDBStrategy {
     List<Artikel> getAll();
     Artikel search(int code);
     List<Artikel> cart();
+    void update(Artikel a);
 }

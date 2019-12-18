@@ -1,6 +1,9 @@
 package model.verkoop;
 
+import model.Artikel;
+
 import java.io.Serializable;
+import java.util.List;
 
 public interface State extends Serializable {
     default void betaal(){throw new IllegalStateException("IllegalStateException betalen"); }
@@ -25,5 +28,6 @@ public interface State extends Serializable {
     default void volgendeVerkoop() {
         throw new IllegalStateException("IllegalState: volgendeVerkoop");
     }
+
 
 }

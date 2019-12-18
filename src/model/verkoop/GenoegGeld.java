@@ -15,9 +15,9 @@ public class GenoegGeld implements State {
         model.setCurrentState(model.getOnHoldState());
     }
 
-    @Override
+   /* @Override
     public void betaal() {
         model.setCurrentState(model.getBeeindigdState());
         model.betaalVerkoop();
-    }
+    }*/
 }

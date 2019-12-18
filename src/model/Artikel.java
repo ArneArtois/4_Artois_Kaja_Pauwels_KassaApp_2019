@@ -31,7 +31,7 @@ public class Artikel implements java.io.Serializable{
         this.aantalPerKeer = aantalPerKeer;
     }
 
-    private void setInVoorraad(int aantal) {
+    public void setInVoorraad(int aantal) {
         if(aantal < 0) {
             throw new IllegalArgumentException("Aantal cannot be less than zero");
         }
@@ -85,6 +85,20 @@ public class Artikel implements java.io.Serializable{
 
     public int getInVoorraad() {
         return inVoorraad;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null) {
+            throw new IllegalArgumentException("Gegeven object mag niet null zijn");
+        }
+
+        if(!(obj instanceof Artikel)) {
+            throw new IllegalArgumentException("Gegeven object is geen artikel");
+        }
+
+        Artikel a = (Artikel) obj;
+        return this.getOmschrijving().equals(a.getOmschrijving());
     }
 
     @Override

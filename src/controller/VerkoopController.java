@@ -56,6 +56,13 @@ public class VerkoopController implements Observer {
         this.kassaView = new KassaView(this, context, propertiesPane, properties);
     }
 
+    public void updateVoorraad(int aantal, Artikel a) {
+        if(a == null) {
+            throw new IllegalArgumentException("Artikel mag niet leeg zijn");
+        }
+        context.get(a.getCode()).setInVoorraad(aantal);
+    }
+
     public void printKassaTicket() {
         String header = properties.getProperty("header");
         String footer = properties.getProperty("footer");
@@ -140,6 +147,10 @@ public class VerkoopController implements Observer {
         klantViewPane.afsluit();
     }
 
+    public void betaalVerkoop() {
+        verkoopModel.getCurrentState().betaal();
+    }
+
     public void eindigVerkoop() {
             this.printKassaTicket();
             verkoopModel.getCurrentState().volgendeVerkoop();
@@ -153,6 +164,10 @@ public class VerkoopController implements Observer {
     public void update(Artikel a, List<Artikel> artikelen) {
         double totalePrijs = verkoopModel.getTotalePrijs();
         verkoopPane.updateDisplay(totalePrijs, artikelen);
+        if(a == null) {
+            overviewPane.updateDisplay(artikelen);
+        }
+
         klantViewPane.updateDisplay(totalePrijs, artikelen);
     }
 }

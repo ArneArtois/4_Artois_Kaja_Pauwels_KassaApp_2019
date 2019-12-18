@@ -38,7 +38,7 @@ public class KassaMainPane extends BorderPane {
         this.context.setLoadSaveStrategy(LoadSaveStrategyFactory.createStrategy(properties.getProperty("method")));
 
         Tab kassaTab = new Tab("Kassa", verkoopController.getVerkoopPane());
-        ProductOverviewPane productOverviewPane = new ProductOverviewPane();
+        ProductOverviewPane productOverviewPane = new ProductOverviewPane(verkoopController);
         Tab artikelTab = new Tab("Artikelen",productOverviewPane);
 
         Tab logTab = new Tab("Log");

@@ -12,6 +12,7 @@ public class Beeindigd implements State {
 
     @Override
     public void volgendeVerkoop() {
+        if(model.getCurrentState() == model.getBetaaldState())
         model.setCurrentState(model.getNewVerkoopState());
         model.volgendeVerkoop();
     }

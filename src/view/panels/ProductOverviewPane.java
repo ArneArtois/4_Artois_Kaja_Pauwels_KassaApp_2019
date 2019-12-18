@@ -22,12 +22,14 @@ import model.ComparatorByOmschrijving;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Properties;
 
 
 public class ProductOverviewPane extends GridPane {
 	private TableView<Artikel> table;
 	private VerkoopController controller;
+	private ObservableList<Artikel> data;
 	
 	
 	public ProductOverviewPane(VerkoopController controller) {
@@ -60,8 +62,13 @@ public class ProductOverviewPane extends GridPane {
         ArtikelDBContext db = new ArtikelDBContext();
         db.setDBStrategy(ArtikelDBStrategyFactory.createStrategy("InMemory"));
         db.setLoadSaveStrategy(LoadSaveStrategyFactory.createStrategy(properties.getProperty("method")));
-        ObservableList<Artikel> data = FXCollections.observableArrayList(db.load());
+        this.data = FXCollections.observableArrayList(db.load());
         data.sort(new ComparatorByOmschrijving());
         table.setItems(data);
+    }
+
+    public void updateDisplay(List<Artikel> artikelen) {
+	        this.data = FXCollections.observableArrayList(artikelen);
+	        table.setItems(this.data);
     }
 }

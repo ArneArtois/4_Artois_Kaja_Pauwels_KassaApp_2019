@@ -23,7 +23,13 @@ public class ArtikelDBContext {
             throw new IllegalArgumentException("The given strategy cannot be empty");
         }
 
+        this.db.setStrategy(strategy);
         this.strategy = strategy;
+
+    }
+
+    public void updateArtikel(Artikel a) {
+        this.db.update(a);
     }
 
     public void setDBStrategy(ArtikelDBStrategy strategy) {
@@ -43,6 +49,10 @@ public class ArtikelDBContext {
             throw new IllegalArgumentException("The given Artikel cannot be empty");
         }
         this.db.add(a);
+    }
+
+    public List<Artikel> getAll() {
+        return this.db.getAll();
     }
 
     public List<Artikel> load() {

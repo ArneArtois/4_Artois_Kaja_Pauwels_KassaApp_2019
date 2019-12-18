@@ -10,10 +10,10 @@ public class NietBetaald implements State {
     {this.model = model;
     }
 
-    @Override
+    /*@Override
     public void betaal(){
         model.setCurrentState(model.getBetaaldState());
-    }
+    }*/
     @Override
     public void annuleer(){
         model.setCurrentState(model.getNewVerkoopState());
