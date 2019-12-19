@@ -59,9 +59,9 @@ public class ArtikelDBContext {
         return this.strategy.load();
     }
 
-    public List<Artikel> getCart(){
-        return this.db.cart();
-    }
+//    public List<Artikel> getCart(){
+//        return this.db.cart();
+//    }
 
     public void remove(int code) {
         if(code < 0) {
@@ -70,15 +70,21 @@ public class ArtikelDBContext {
 
         this.db.remove(code);
     }
-
     public Artikel get(int code) {
-        if(code < 0) {
+        if (code < 0) {
             throw new IllegalArgumentException("The given code cannot be less than zero");
         }
         Artikel artikel = this.db.search(code);
-        db.cart().add(artikel);
+//        db.cart().add(artikel);
         return artikel;
-
+    }
+    public Artikel add(int code) {
+        if (code < 0) {
+            throw new IllegalArgumentException("The given code cannot be less than zero");
+        }
+        Artikel artikel = this.db.search(code);
+//        db.cart().add(artikel);
+        return artikel;
     }
 
     public void save(List<Artikel> artikelen) {

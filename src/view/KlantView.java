@@ -4,17 +4,13 @@ import controller.VerkoopController;
 import database.ArtikelDBContext;
 import database.factory.ArtikelDBStrategyFactory;
 import database.factory.LoadSaveStrategyFactory;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import model.Artikel;
-import model.VerkoopModel;
+import view.panels.KlantViewPane;
 import view.panels.PropertiesPane;
 //import view.domain.Controller;
 
-import java.util.ArrayList;
 import java.util.Properties;
 
 public class KlantView {

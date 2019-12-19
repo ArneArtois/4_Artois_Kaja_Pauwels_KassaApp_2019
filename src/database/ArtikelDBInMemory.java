@@ -12,7 +12,6 @@ import java.util.List;
 public class ArtikelDBInMemory implements ArtikelDBStrategy{
     private HashMap<Integer, Artikel> artikelen;
     private LoadSaveStrategy loadSaveStrategy;
-    private ArrayList<Artikel> cart = new ArrayList<>();
 
     public ArtikelDBInMemory() {
         //TODO replace with factory
@@ -41,13 +40,7 @@ public class ArtikelDBInMemory implements ArtikelDBStrategy{
         }
         Artikel artikel = artikelen.get(code);
         System.out.println(artikel + " search sout");
-        cart.add(artikel);
         return artikel;
-    }
-
-    @Override
-    public List<Artikel> cart() {
-        return this.cart;
     }
 
     public List<Artikel> getAll(){

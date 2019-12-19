@@ -16,13 +16,6 @@ public class Artikel implements java.io.Serializable{
         setVerkoopprijs(prijs);
         setInVoorraad(aantal);
     }
-    public Artikel(Artikel artikel) {
-        setCode(artikel.getCode());
-        setOmschrijving(artikel.getOmschrijving());
-        setArtikelGroep(artikel.getArtikelGroep());
-        setVerkoopprijs(artikel.getVerkoopprijs());
-        setInVoorraad(artikel.getInVoorraad());
-    }
 
     public int getAantalPerKeer() {
         return aantalPerKeer;
