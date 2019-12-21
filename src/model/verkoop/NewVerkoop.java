@@ -45,7 +45,7 @@ public class NewVerkoop implements State {
             }
             context.save(context.getAll());
             verkoop.setCurrentState(verkoop.getBetaaldState());
-            verkoop.notifyObservers(null, context.getAll());
+            verkoop.notifyObservers(null, context.getAll(), 0, false);
         //}
 
     }

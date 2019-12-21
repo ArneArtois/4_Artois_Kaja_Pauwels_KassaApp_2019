@@ -24,7 +24,9 @@ public class VerkoopPane extends GridPane {
     private Label bedrag = new Label("Totale bedrag: ");
     private VerkoopController verkoopController;
     private double prijsDouble = 0;
+    private double kortingDouble = 0;
     private Button betaaldBtn = new Button("BETAALD");
+    private Button annuleerBtn = new Button("ANNULEER");
 
     TableColumn omschrCol = new TableColumn<model.Artikel, Object>("Omschrijving");
     TableColumn prijsCol = new TableColumn("prijs");
@@ -57,20 +59,29 @@ public class VerkoopPane extends GridPane {
         codeTextFieldRemove.setOnAction(event -> {
             verkoopController.codeRemove(Integer.parseInt(codeTextFieldRemove.getText()));
             this.codeTextFieldRemove.clear();
+            if(afsluit.isDisabled()){
+                korting();
+            }
         });
         this.add(onHold, 1,1);
         onHold.setOnAction(event -> {
+            this.loadVerkoop.setVisible(true);
+            this.loadVerkoop.setDisable(false);
             verkoopController.slaVerkoopOp();
         });
         this.add(loadVerkoop, 1,2);
+        loadVerkoop.setVisible(false);
+        loadVerkoop.setDisable(false);
         loadVerkoop.setOnAction(event -> {
             verkoopController.leesVerkoop();
+            loadVerkoop.setVisible(false);
+            loadVerkoop.setDisable(true);
         });
         this.add(afsluit, 1, 3);
         afsluit.setOnAction(event -> {
-            this.korting.setText("Totale korting: " + verkoopController.getKorting());
-            this.bedrag.setText("Totale bedrag: "+ (prijsDouble - verkoopController.getKorting()));
-            verkoopController.afsluit();
+            this.afsluit.setDisable(true);
+            this.codeTextField.setDisable(true);
+            verkoopController.update();
             //verkoopController.printKassaTicket();
         });
 
@@ -78,13 +89,23 @@ public class VerkoopPane extends GridPane {
         betaaldBtn.setOnAction(event -> {
             verkoopController.eindigVerkoop();
         });
+        this.add(annuleerBtn, 1, 5);
+        annuleerBtn.setOnAction(event ->{
+           verkoopController.eindigVerkoop();
+        });
+
     }
 
-    public void updateDisplay(double prijs, List<Artikel> artikelen) {
+    public void updateDisplay(double prijs, List<Artikel> artikelen, double korting, boolean afgesloten) {
         this.prijs.setText("Totale prijs: " + prijs);
         this.prijsDouble = prijs;
         ObservableList<Artikel> observableList =  FXCollections.observableArrayList(artikelen);
         this.tableView.setItems(observableList);
+        this.kortingDouble = korting;
+        if(afgesloten) {
+            this.korting.setText("Totale korting: " + korting);
+            this.bedrag.setText("Totale bedrag: " + (prijs - korting));
+        }
     }
 
     public void artikelNietGevonden() {
@@ -93,6 +114,11 @@ public class VerkoopPane extends GridPane {
 
     public void artikelWelGevonden() {
         this.errorLabel.setText("");
+    }
+    public void korting(){
+    }
+    public boolean getAfgesloten(){
+        return this.afsluit.isDisabled();
     }
 
     /*public Label getPrijs() {

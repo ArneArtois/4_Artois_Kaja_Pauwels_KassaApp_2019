@@ -57,15 +57,20 @@ public class KlantViewPane extends GridPane {
         return tableView;
     }
 
-    public void updateDisplay(double prijs, List<Artikel> artikelen) {
+    public void updateDisplay(double prijs, List<Artikel> artikelen, double korting, boolean afgesloten) {
+
         this.prijs.setText("Totale prijs: " + prijs);
         this.prijsDouble = prijs;
         ObservableList<Artikel> observableList = FXCollections.observableArrayList(verkoopController.convertToCustomerView(artikelen));
         this.tableView.setItems(observableList);
         this.tableView.refresh();
+        if(afgesloten){
+            this.korting.setText("Korting: " + korting);
+            this.teBetalen.setText("Te betalen: " + (prijs-korting));
+        }
     }
-    public void afsluit(){
-        this.korting.setText("Korting: " + verkoopController.getKorting());
-        this.teBetalen.setText("Te betalen: " + (prijsDouble - verkoopController.getKorting()));
-    }
+//    public void afsluit(){
+//        this.korting.setText("Korting: " + verkoopController.getKorting());
+//        this.teBetalen.setText("Te betalen: " + (prijsDouble - verkoopController.getKorting()));
+//    }
 }

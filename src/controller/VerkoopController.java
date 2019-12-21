@@ -136,11 +136,11 @@ public class VerkoopController implements Observer {
         Artikel a = context.add(code);
         if(a != null) {
             verkoopModel.addArtikel(a);
-            update(a, verkoopModel.getArtikelen());
+            update(a, verkoopModel.getArtikelen(), getKorting(), false);
             verkoopPane.artikelWelGevonden();
         } else {
 
-            update(a, verkoopModel.getArtikelen());
+            update(a, verkoopModel.getArtikelen(), getKorting(), false);
             verkoopPane.artikelNietGevonden();
         }
     }
@@ -149,10 +149,15 @@ public class VerkoopController implements Observer {
         Artikel a = context.add(code);
         if(a != null && verkoopModel.getArtikelen().contains(a)) {
             verkoopModel.removeArtikel(a);
+            update(a, verkoopModel.getArtikelen(), getKorting(), verkoopPane.getAfgesloten());
             verkoopPane.artikelWelGevonden();
         } else {
             verkoopPane.artikelNietGevonden();
+            update(a, verkoopModel.getArtikelen(), getKorting(), verkoopPane.getAfgesloten());
         }
+    }
+    public void update(){
+        update(null, verkoopModel.getArtikelen(), getKorting(), verkoopPane.getAfgesloten());
     }
 
     public double getKorting() {
@@ -166,9 +171,9 @@ public class VerkoopController implements Observer {
         System.out.println(this.kortingStrategy.berekenKorting(verkoopModel.getArtikelen(), groep, percentage, minBedrag));
         return this.kortingStrategy.berekenKorting(verkoopModel.getArtikelen(), groep, percentage, minBedrag);
     }
-    public void afsluit(){
-        klantViewPane.afsluit();
-    }
+//    public void afsluit(){
+//        klantViewPane.afsluit();
+//    }
 
     public void betaalVerkoop() {
         verkoopModel.getCurrentState().betaal();
@@ -181,11 +186,11 @@ public class VerkoopController implements Observer {
 
 
     @Override
-    public void update(Artikel a, List<Artikel> artikelen) {
+    public void update(Artikel a, List<Artikel> artikelen, double korting, boolean afgesloten) {
         double totalePrijs = verkoopModel.getTotalePrijs();
-        verkoopPane.updateDisplay(totalePrijs, artikelen);
+        verkoopPane.updateDisplay(totalePrijs, artikelen, korting, afgesloten);
 
-        klantViewPane.updateDisplay(totalePrijs, artikelen);
+        klantViewPane.updateDisplay(totalePrijs, artikelen, korting, afgesloten);
         if(a == null) {
             overviewPane.updateDisplay(artikelen);
         }

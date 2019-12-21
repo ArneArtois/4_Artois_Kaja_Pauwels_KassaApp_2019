@@ -1,6 +1,7 @@
 package model;
 
 
+import controller.VerkoopController;
 import database.ArtikelDBContext;
 import database.ArtikelDBInMemory;
 import model.observer.Observer;
@@ -12,8 +13,10 @@ import java.util.List;
 public class KlantModel implements Subject {
     private List<Artikel> artikelen;
     private List<Observer> observers;
+    private VerkoopController verkoopController;
 
-    public KlantModel(ArtikelDBContext context){
+    public KlantModel(VerkoopController verkoopController){
+        this.verkoopController = verkoopController;
         this.artikelen = new ArrayList<>();
         this.observers = new ArrayList<>();
     }
@@ -40,13 +43,13 @@ public class KlantModel implements Subject {
     }
 
     @Override
-    public void notifyObservers(Artikel a, List<Artikel> artikelen) {
+    public void notifyObservers(Artikel a, List<Artikel> artikelen, double korting, boolean afgesloten) {
         for(Observer o : this.observers) {
-            o.update(a, artikelen);
+            o.update(a, artikelen, korting, verkoopController.getVerkoopPane().getAfgesloten());
         }
     }
     public void addArtikel(Artikel artikel){
         artikelen.add(artikel);
-        notifyObservers(artikel, artikelen);
+        notifyObservers(artikel, artikelen, 0, verkoopController.getVerkoopPane().getAfgesloten());
     }
 }

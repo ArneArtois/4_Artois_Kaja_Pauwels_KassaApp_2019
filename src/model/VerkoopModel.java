@@ -18,10 +18,12 @@ public class VerkoopModel implements Subject, java.io.Serializable {
     private State betaaldState;
     private State genoegGeldState;
     private State nietGenoegGeldState;
+    private VerkoopController verkoopController;
 
     private State currentState;
 
     public VerkoopModel(VerkoopController verkoopController) {
+        this.verkoopController = verkoopController;
         newVerkoopState = new NewVerkoop(this);
         this.currentState = newVerkoopState;
         beeindigdState = new Beeindigd(this);
@@ -109,7 +111,7 @@ public class VerkoopModel implements Subject, java.io.Serializable {
 
     public void volgendeVerkoop() {
         this.artikelen.clear();
-        notifyObservers(null, this.artikelen);
+        notifyObservers(null, this.artikelen, 0, false);
     }
 
     public void laadVerkoop(VerkoopModel verkoop) {
@@ -118,7 +120,7 @@ public class VerkoopModel implements Subject, java.io.Serializable {
         }
 
         this.artikelen = verkoop.getArtikelen();
-        notifyObservers(null, this.artikelen);
+        notifyObservers(null, this.artikelen, 0, false);
     }
 
     public int getTotaalAantal() {
@@ -146,7 +148,7 @@ public class VerkoopModel implements Subject, java.io.Serializable {
             throw new IllegalArgumentException("Artikel mag niet leeg zijn");
         }
         this.artikelen.add(a);
-        notifyObservers(a, this.artikelen);
+        notifyObservers(a, this.artikelen, 0, false);
     }
 
     public void removeArtikel(Artikel a) {
@@ -154,7 +156,7 @@ public class VerkoopModel implements Subject, java.io.Serializable {
             throw new IllegalArgumentException("Artikel mag niet leeg zijn");
         }
         this.artikelen.remove(a);
-        notifyObservers(a, this.artikelen);
+        notifyObservers(a, this.artikelen, 0, verkoopController.getVerkoopPane().getAfgesloten());
     }
 
     @Override
@@ -175,9 +177,9 @@ public class VerkoopModel implements Subject, java.io.Serializable {
     }
 
     @Override
-    public void notifyObservers(Artikel a, List<Artikel> artikelen) {
+    public void notifyObservers(Artikel a, List<Artikel> artikelen, double korting, boolean afgesloten) {
         for(Observer o : this.observers) {
-            o.update(a, artikelen);
+            o.update(a, artikelen, korting, afgesloten);
         }
     }
 }
