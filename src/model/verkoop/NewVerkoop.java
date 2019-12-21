@@ -15,7 +15,7 @@ public class NewVerkoop implements State {
     private VerkoopModel verkoop;
     private ArtikelDBContext context;
     private PropertiesPane propertiesPane;
-    Properties properties;
+    private Properties properties;
 
     public NewVerkoop(VerkoopModel model) {
         this.propertiesPane = new PropertiesPane();
@@ -58,5 +58,11 @@ public class NewVerkoop implements State {
     @Override
     public void onHold() {
         verkoop.setCurrentState(verkoop.getOnHoldState());
+    }
+
+    @Override
+    public void annuleer() {
+        verkoop.setCurrentState(verkoop.getBeeindigdState());
+        verkoop.volgendeVerkoop();
     }
 }

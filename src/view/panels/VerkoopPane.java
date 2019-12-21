@@ -91,7 +91,8 @@ public class VerkoopPane extends GridPane {
         });
         this.add(annuleerBtn, 1, 5);
         annuleerBtn.setOnAction(event ->{
-           verkoopController.eindigVerkoop();
+           //verkoopController.eindigVerkoop();
+            verkoopController.annuleerVerkoop();
         });
 
     }

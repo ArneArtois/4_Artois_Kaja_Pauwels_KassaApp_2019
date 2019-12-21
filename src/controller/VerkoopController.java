@@ -179,6 +179,10 @@ public class VerkoopController implements Observer {
         verkoopModel.getCurrentState().betaal();
     }
 
+    public void annuleerVerkoop() {
+        verkoopModel.getCurrentState().annuleer();
+    }
+
     public void eindigVerkoop() {
             this.printKassaTicket();
             verkoopModel.getCurrentState().volgendeVerkoop();

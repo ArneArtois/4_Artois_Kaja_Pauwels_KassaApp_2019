@@ -58,6 +58,8 @@ public class VerkoopModel implements Subject, java.io.Serializable {
     public void clearArtikelen(){artikelen.clear();
     }
 
+
+
     public State getGenoegGeldState() {
         return genoegGeldState;
     }
@@ -73,6 +75,8 @@ public class VerkoopModel implements Subject, java.io.Serializable {
     public void beeindigVerkoop() {
         this.currentState.eindigVerkoop();
     }
+
+
 
 
    /* public void betaalVerkoop() {
