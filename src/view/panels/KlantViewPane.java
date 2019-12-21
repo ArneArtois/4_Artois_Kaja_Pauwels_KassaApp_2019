@@ -50,6 +50,7 @@ public class KlantViewPane extends GridPane {
         this.add(betaal, 0, 7);
         this.betaal.setOnAction(event -> {
             verkoopController.betaalVerkoop();
+            verkoopController.printKassaTicket();
         });
     }
 
