@@ -1,4 +1,4 @@
-package model.verkoop;
+package model.verkoop.oldStates;
 
 import controller.VerkoopController;
 import database.ArtikelDBContext;
@@ -6,6 +6,7 @@ import database.factory.ArtikelDBStrategyFactory;
 import database.factory.LoadSaveStrategyFactory;
 import model.Artikel;
 import model.VerkoopModel;
+import model.verkoop.State;
 import view.panels.PropertiesPane;
 
 import java.util.List;

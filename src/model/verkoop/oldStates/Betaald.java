@@ -1,7 +1,8 @@
-package model.verkoop;
+package model.verkoop.oldStates;
 
 import controller.VerkoopController;
 import model.VerkoopModel;
+import model.verkoop.State;
 
 public class Betaald implements State {
     private VerkoopModel model;

@@ -4,6 +4,7 @@ import controller.VerkoopController;
 import model.observer.Observer;
 import model.observer.Subject;
 import model.verkoop.*;
+import model.verkoop.oldStates.*;
 
 import java.util.ArrayList;
 import java.util.List;

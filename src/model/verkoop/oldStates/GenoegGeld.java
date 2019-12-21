@@ -1,6 +1,7 @@
-package model.verkoop;
+package model.verkoop.oldStates;
 
 import model.VerkoopModel;
+import model.verkoop.State;
 
 public class GenoegGeld implements State {
     private VerkoopModel model;
