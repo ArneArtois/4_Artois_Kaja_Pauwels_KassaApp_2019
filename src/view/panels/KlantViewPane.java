@@ -17,6 +17,8 @@ import view.panels.VerkoopPane;
 
 import java.util.*;
 
+import static java.lang.Math.round;
+
 public class KlantViewPane extends GridPane {
     private TableView<Artikel> tableView = new TableView<>();
 
@@ -62,7 +64,9 @@ public class KlantViewPane extends GridPane {
         this.tableView.refresh();
         if(afgesloten){
             this.korting.setText("Korting: " + korting);
-            this.teBetalen.setText("Te betalen: " + (prijs-korting));
+            double result1 = round((prijs-korting)*100);
+            double result2 = result1/100;
+            this.teBetalen.setText("Te betalen: " + result2);
         }
     }
 //    public void afsluit(){

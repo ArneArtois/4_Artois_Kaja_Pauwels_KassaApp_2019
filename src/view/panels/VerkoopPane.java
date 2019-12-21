@@ -10,6 +10,8 @@ import model.Artikel;
 
 import java.util.List;
 
+import static java.lang.Math.round;
+
 public class VerkoopPane extends GridPane {
     private Label enterLabel = new Label("Geef de artikelcode in: ");
     private TextField codeTextField = new TextField();
@@ -105,7 +107,9 @@ public class VerkoopPane extends GridPane {
         this.kortingDouble = korting;
         if(afgesloten) {
             this.korting.setText("Totale korting: " + korting);
-            this.bedrag.setText("Totale bedrag: " + (prijs - korting));
+            double result1 = round((prijs-korting)*100);
+            double result2 = result1/100;
+            this.bedrag.setText("Totale bedrag: " + result2);
         }
     }
 
