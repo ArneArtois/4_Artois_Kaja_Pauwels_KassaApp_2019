@@ -51,6 +51,10 @@ public class VerkoopModel implements Subject, java.io.Serializable {
         return this.artikelen;
     }
 
+    public void setVerkoopController(VerkoopController controller) {
+        this.verkoopController = controller;
+    }
+
     public Artikel getArtikel(int code) {
         Artikel a = null;
         if (code < 0) {

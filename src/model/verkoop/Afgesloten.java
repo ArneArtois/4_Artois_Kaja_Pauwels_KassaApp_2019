@@ -17,6 +17,6 @@ public class Afgesloten implements State {
     @Override
     public void annuleer() {
         verkoopModel.setCurrentState(verkoopModel.getEindeState());
-        verkoopModel.volgendeVerkoop();
+       // verkoopModel.volgendeVerkoop();
     }
 }

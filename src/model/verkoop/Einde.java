@@ -12,6 +12,6 @@ public class Einde implements State {
     @Override
     public void reset() {
         verkoopModel.setCurrentState(verkoopModel.getNieuweVerkoopState());
-        verkoopModel.volgendeVerkoop();
+        //verkoopModel.volgendeVerkoop();
     }
 }

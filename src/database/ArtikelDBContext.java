@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 //Facade class to use in application
-public class ArtikelDBContext {
+public class ArtikelDBContext{
     private LoadSaveStrategy strategy;
     private ArtikelDBStrategy db;
     //private HashMap<String, Artikel> artikelen;
