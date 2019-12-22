@@ -34,12 +34,12 @@ public class ArtikelDBInMemory implements ArtikelDBStrategy{
 
     @Override
     public Artikel search(int code){
-        System.out.println("search");
+        //System.out.println("search");
         if(code < 0){
             throw new DomainException("Code mag niet negatief zijn");
         }
         Artikel artikel = artikelen.get(code);
-        System.out.println(artikel + " search sout");
+        //System.out.println(artikel + " search sout");
         return artikel;
     }
 

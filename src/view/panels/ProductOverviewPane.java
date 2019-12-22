@@ -71,6 +71,6 @@ public class ProductOverviewPane extends GridPane {
 	        this.data = FXCollections.observableArrayList(artikelen);
 	        table.setItems(this.data);
 	        this.table.refresh();
-            System.out.println("test");
+            //System.out.println("test");
     }
 }

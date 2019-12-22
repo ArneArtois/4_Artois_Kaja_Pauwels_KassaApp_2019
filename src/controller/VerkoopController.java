@@ -68,12 +68,30 @@ public class VerkoopController implements Observer {
         String footer = properties.getProperty("footer");
         if(header != null) {
             ticket = new KassaTicketDecoratorHeader(ticket, header);
+            removeHeaderFooter();
         }
 
         if(footer != null) {
             ticket = new KassaTicketDecoratorFooter(ticket, footer);
+            removeHeaderFooter();
         }
         System.out.println(ticket.print(verkoopModel.getArtikelen(), verkoopModel.getTotalePrijs()-getKorting()));
+    }
+
+    private void removeHeaderFooter() {
+        try {
+            OutputStream os = new FileOutputStream("src/bestanden/instellingen.properties");
+            if(properties.getProperty("header") != null){
+                properties.remove("header");
+            }
+
+            if(properties.getProperty("footer") != null) {
+                properties.remove("footer");
+            }
+            properties.store(os, "Instellingen van de KassaApp");
+        } catch (IOException e) {
+            throw new ControllerException(e.getMessage());
+        }
     }
 
 
@@ -84,7 +102,7 @@ public class VerkoopController implements Observer {
             verkoopModel.getCurrentState().onHold();
             out.writeObject(this.verkoopModel.getArtikelen());
             //Testing
-            System.out.println("Verkoop on hold gezet");
+            //System.out.println("Verkoop on hold gezet");
             //verkoopModel.clearArtikelen();
 
             this.verkoopModel = new VerkoopModel(this);
@@ -126,7 +144,7 @@ public class VerkoopController implements Observer {
         this.verkoopModel = this.onHoldVerkoop;
         this.onHoldVerkoop = null;
         update(null, this.verkoopModel.getArtikelen(),0,false);*/
-        System.out.println(verkoopModel.getCurrentState());
+        //System.out.println(verkoopModel.getCurrentState());
     }
     public List<Artikel> convertToCustomerView(List<Artikel> artikelArrayList) {
         List<Artikel> result = new ArrayList<>();
@@ -194,8 +212,8 @@ public class VerkoopController implements Observer {
         int percentage = Integer.parseInt(properties.getProperty("percentage"));
         double minBedrag = Double.parseDouble(properties.getProperty("bedrag"));
         this.kortingStrategy = KortingFactory.createStrategy(type);
-        System.out.println(kortingStrategy);
-        System.out.println(this.kortingStrategy.berekenKorting(verkoopModel.getArtikelen(), groep, percentage, minBedrag));
+        //System.out.println(kortingStrategy);
+        //System.out.println(this.kortingStrategy.berekenKorting(verkoopModel.getArtikelen(), groep, percentage, minBedrag));
         return this.kortingStrategy.berekenKorting(verkoopModel.getArtikelen(), groep, percentage, minBedrag);
     }
 //    public void afsluit(){

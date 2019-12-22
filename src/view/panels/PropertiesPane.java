@@ -110,9 +110,11 @@ public class PropertiesPane extends GridPane {
                 }
 
                 if(headerCheck.isSelected() && !headerText.getText().equals("")) {
+
                     properties.setProperty("header", headerText.getText());
                 } else {
                     properties.remove("header");
+
                 }
 
                 if(footerCheck.isSelected() && !footerText.getText().equals("")) {
