@@ -239,6 +239,7 @@ public class VerkoopController implements Observer {
             verkoopModel.clearArtikelen();
             verkoopPane.resetLabels();
             klantViewPane.resetLabels();
+            //context.save(context.getAll());
             //productOverviewPane.updateDisplay(context.load());
             verkoopTeller++;
 
@@ -255,7 +256,7 @@ public class VerkoopController implements Observer {
                 }
             }
         }
-        context.save(context.getAll());
+        //context.save(context.getAll());
     }
 
     public LogPane getLogPane() {
