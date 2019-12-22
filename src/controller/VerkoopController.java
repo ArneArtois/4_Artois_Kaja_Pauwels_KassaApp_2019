@@ -13,12 +13,10 @@ import model.observer.Observer;
 import model.strategy.KortingStrategy;
 import view.KassaView;
 import view.KlantView;
-import view.panels.KlantViewPane;
-import view.panels.ProductOverviewPane;
-import view.panels.PropertiesPane;
-import view.panels.VerkoopPane;
+import view.panels.*;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.util.*;
 
 public class VerkoopController implements Observer {
@@ -32,6 +30,7 @@ public class VerkoopController implements Observer {
 
     private KassaView kassaView;
     private KlantView klantView;
+    private LogPane logPane;
 
     private KassaTicket ticket = new KassaTicketImplementation();
 
@@ -44,6 +43,8 @@ public class VerkoopController implements Observer {
         verkoopModel.registerObserver(this);
         this.context = new ArtikelDBContext();
 
+
+        this.logPane = new LogPane(this);
         this.propertiesPane = new PropertiesPane();
         this.klantViewPane = new KlantViewPane(this);
         this.klantView = new KlantView(this, klantViewPane);
@@ -205,11 +206,20 @@ public class VerkoopController implements Observer {
     public void eindigVerkoop() {
             verkoopModel.getCurrentState().betaal();
             this.printKassaTicket();
+            this.logPane.addEntry(createEntry(LocalDate.now(),verkoopModel.getTotalePrijs(), getKorting(), verkoopModel.getTotalePrijs()-getKorting()));
             update(null, new ArrayList<>(),0,true);
             verkoopPane.setAfsluit(false);
             verkoopPane.setInputField(false);
 
 
+    }
+
+    public LogPane getLogPane() {
+        return logPane;
+    }
+
+    public String createEntry(LocalDate datum, double totaalBedrag, double korting, double teBetalen) {
+        return datum + " - " + totaalBedrag + " - " + korting + " - " + teBetalen;
     }
 
     public void sluitVerkoopAf() {

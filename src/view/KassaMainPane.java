@@ -41,7 +41,7 @@ public class KassaMainPane extends BorderPane {
         ProductOverviewPane productOverviewPane = new ProductOverviewPane(verkoopController);
         Tab artikelTab = new Tab("Artikelen",productOverviewPane);
 
-        Tab logTab = new Tab("Log");
+        Tab logTab = new Tab("Log", verkoopController.getLogPane());
         ObservableList<Artikel> data = FXCollections.observableArrayList();
 
         if(properties.getProperty("method") == null || properties.getProperty("method").trim().isEmpty()) {
