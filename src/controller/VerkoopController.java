@@ -22,7 +22,7 @@ import java.util.*;
 public class VerkoopController implements Observer {
     private ArtikelDBContext context;
     private VerkoopModel verkoopModel;
-    private VerkoopModel onHoldVerkoop = null;
+    private int verkoopTeller = 0;
 
     private VerkoopPane verkoopPane;
     private KlantViewPane klantViewPane;
@@ -81,11 +81,12 @@ public class VerkoopController implements Observer {
     public void slaVerkoopOp() {
         try(FileOutputStream fileOut = new FileOutputStream("src/bestanden/verkoop.ser");
             ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
+            verkoopModel.getCurrentState().onHold();
             out.writeObject(this.verkoopModel.getArtikelen());
             //Testing
             System.out.println("Verkoop on hold gezet");
             //verkoopModel.clearArtikelen();
-            verkoopModel.getCurrentState().onHold();
+
             this.verkoopModel = new VerkoopModel(this);
             update(null, this.verkoopModel.getArtikelen(),0,false);
             //verkoopModel.volgendeVerkoop();
@@ -99,25 +100,33 @@ public class VerkoopController implements Observer {
 
     public void leesVerkoop() {
         VerkoopModel verkoop;
+        if(verkoopTeller <= 3) {
+            this.verkoopModel.getCurrentState().onHold();
+            this.verkoopModel.getCurrentState().zetNietOnHold();
+            try (FileInputStream fileIn = new FileInputStream("src/bestanden/verkoop.ser");
+                 ObjectInputStream in = new ObjectInputStream(fileIn)) {
+                ArrayList<Artikel> artikelArrayList = (ArrayList<Artikel>) in.readObject();
+                //verkoop = new VerkoopModel(this);
+                verkoopModel.clearArtikelen();
+                for (Artikel artikel : artikelArrayList) {
+                    verkoopModel.addArtikel(artikel);
+                }
+                //this.verkoopModel = verkoop;
+                update(null, this.verkoopModel.getArtikelen(), 0, false);
 
-        try(FileInputStream fileIn = new FileInputStream("src/bestanden/verkoop.ser");
-            ObjectInputStream in = new ObjectInputStream(fileIn)) {
-            ArrayList<Artikel> artikelArrayList = (ArrayList<Artikel>) in.readObject();
-            //verkoop = new VerkoopModel(this);
-            verkoopModel.clearArtikelen();
-            for(Artikel artikel: artikelArrayList){
-                verkoopModel.addArtikel(artikel);
+            } catch (IOException | ClassNotFoundException e) {
+                throw new ControllerException(e.getMessage());
             }
-            //this.verkoopModel = verkoop;
-            update(null, this.verkoopModel.getArtikelen(), 0,false);
-
-        } catch (IOException | ClassNotFoundException e) {
-            throw new ControllerException(e.getMessage());
-        }/*
+        } else {
+            File verkoopFile = new File("src/bestanden/verkoop.ser");
+            verkoopFile.delete();
+            verkoopTeller = 0;
+        }
+        /*
         this.verkoopModel = this.onHoldVerkoop;
         this.onHoldVerkoop = null;
-        update(null, this.verkoopModel.getArtikelen(),0,false);
-        //verkoopModel.getCurrentState().zetNietOnHold();*/
+        update(null, this.verkoopModel.getArtikelen(),0,false);*/
+        System.out.println(verkoopModel.getCurrentState());
     }
     public List<Artikel> convertToCustomerView(List<Artikel> artikelArrayList) {
         List<Artikel> result = new ArrayList<>();
@@ -212,6 +221,7 @@ public class VerkoopController implements Observer {
         verkoopPane.resetLabels();
         klantViewPane.resetLabels();
 
+
     }
 
     public void eindigVerkoop() {
@@ -223,6 +233,10 @@ public class VerkoopController implements Observer {
             update(null, new ArrayList<>(),0,true);
             verkoopPane.setAfsluit(false);
             verkoopPane.setInputField(false);
+            verkoopModel.clearArtikelen();
+            verkoopPane.resetLabels();
+            klantViewPane.resetLabels();
+            verkoopTeller++;
 
 
 
