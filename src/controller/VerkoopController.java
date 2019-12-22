@@ -27,7 +27,7 @@ public class VerkoopController implements Observer {
     private VerkoopPane verkoopPane;
     private KlantViewPane klantViewPane;
     private PropertiesPane propertiesPane;
-    private ProductOverviewPane overviewPane;
+    private ProductOverviewPane productOverviewPane;
 
     private KassaView kassaView;
     private KlantView klantView;
@@ -37,7 +37,7 @@ public class VerkoopController implements Observer {
 
     private Properties properties;
     private KortingStrategy kortingStrategy;
-    private ProductOverviewPane productOverviewPane;
+   // private ProductOverviewPane productOverviewPane;
 
     public VerkoopController() {
 
@@ -230,7 +230,7 @@ public class VerkoopController implements Observer {
     public void eindigVerkoop() {
             verkoopModel.getCurrentState().betaal();
             pasVoorraadAan();
-            overviewPane.updateDisplay(context.getAll());
+            productOverviewPane.updateDisplay(context.getAll());
             this.printKassaTicket();
             this.logPane.addEntry(createEntry(LocalDate.now(),verkoopModel.getTotalePrijs(), getKorting(), verkoopModel.getTotalePrijs()-getKorting()));
             update(null, new ArrayList<>(),0,true);
@@ -239,6 +239,7 @@ public class VerkoopController implements Observer {
             verkoopModel.clearArtikelen();
             verkoopPane.resetLabels();
             klantViewPane.resetLabels();
+            //productOverviewPane.updateDisplay(context.load());
             verkoopTeller++;
 
 
@@ -277,7 +278,7 @@ public class VerkoopController implements Observer {
 
         verkoopPane.updateDisplay(totalePrijs, artikelen, korting, afgesloten);
         klantViewPane.updateDisplay(totalePrijs, artikelen, korting, afgesloten);
-        productOverviewPane.updateDisplay(artikelen);
+        //productOverviewPane.updateDisplay(artikelen);
 
 
     }
