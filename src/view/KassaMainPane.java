@@ -26,7 +26,8 @@ public class KassaMainPane extends BorderPane {
     public ArtikelDBContext context;
     private Properties properties;
     private PropertiesPane propertiesPane;
-	public KassaMainPane(VerkoopController verkoopController, ArtikelDBContext context, PropertiesPane propertiesPane, Properties properties){
+    private ProductOverviewPane productOverviewPane;
+	public KassaMainPane(VerkoopController verkoopController, ArtikelDBContext context, ProductOverviewPane productOverviewPane ,PropertiesPane propertiesPane, Properties properties){
 	    this.context = context;
 	    this.propertiesPane = propertiesPane;
 	    this.verkoopController = verkoopController;
@@ -37,11 +38,11 @@ public class KassaMainPane extends BorderPane {
         this.context.setLoadSaveStrategy(LoadSaveStrategyFactory.createStrategy(properties.getProperty("method")));
 
         Tab kassaTab = new Tab("Kassa", verkoopController.getVerkoopPane());
-        ProductOverviewPane productOverviewPane = new ProductOverviewPane(verkoopController);
+        this.productOverviewPane = productOverviewPane;
+        verkoopController.setProductOverviewPane(productOverviewPane);
         Tab artikelTab = new Tab("Artikelen",productOverviewPane);
 
         Tab logTab = new Tab("Log", verkoopController.getLogPane());
-        ObservableList<Artikel> data = FXCollections.observableArrayList();
 
         if(properties.getProperty("method") == null || properties.getProperty("method").trim().isEmpty()) {
             try {
