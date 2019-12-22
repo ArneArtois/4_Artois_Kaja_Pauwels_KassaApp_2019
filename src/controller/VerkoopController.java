@@ -205,6 +205,8 @@ public class VerkoopController implements Observer {
 
     public void eindigVerkoop() {
             verkoopModel.getCurrentState().betaal();
+            pasVoorraadAan();
+            overviewPane.updateDisplay(context.getAll());
             this.printKassaTicket();
             this.logPane.addEntry(createEntry(LocalDate.now(),verkoopModel.getTotalePrijs(), getKorting(), verkoopModel.getTotalePrijs()-getKorting()));
             update(null, new ArrayList<>(),0,true);
@@ -212,6 +214,18 @@ public class VerkoopController implements Observer {
             verkoopPane.setInputField(false);
 
 
+    }
+
+    private void pasVoorraadAan() {
+        for(Artikel a : verkoopModel.getArtikelen()) {
+            for(Artikel artikel : context.getAll()) {
+                if(a.equals(artikel)) {
+                    artikel.setInVoorraad(artikel.getInVoorraad()-a.getAantalPerKeer());
+                    context.updateArtikel(artikel);
+                }
+            }
+        }
+        context.save(context.getAll());
     }
 
     public LogPane getLogPane() {
