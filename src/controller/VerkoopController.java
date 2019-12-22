@@ -74,13 +74,19 @@ public class VerkoopController implements Observer {
         System.out.println(ticket.print(verkoopModel.getArtikelen(), verkoopModel.getTotalePrijs()-getKorting()));
     }
 
+
+
     public void slaVerkoopOp() {
         try(FileOutputStream fileOut = new FileOutputStream("src/bestanden/verkoop.ser");
             ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
             out.writeObject(this.verkoopModel.getArtikelen());
             //Testing
             System.out.println("Verkoop on hold gezet");
-            verkoopModel.volgendeVerkoop();
+            //verkoopModel.clearArtikelen();
+            verkoopModel.getCurrentState().onHold();
+            this.verkoopModel = new VerkoopModel(this);
+            update(null, this.verkoopModel.getArtikelen(),0,false);
+            //verkoopModel.volgendeVerkoop();
         } catch (IOException e) {
             throw new ControllerException(e.getMessage());
         }
@@ -92,14 +98,18 @@ public class VerkoopController implements Observer {
         try(FileInputStream fileIn = new FileInputStream("src/bestanden/verkoop.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn)) {
             ArrayList<Artikel> artikelArrayList = (ArrayList<Artikel>) in.readObject();
-            verkoopModel.clearArtikelen();
+            verkoop = new VerkoopModel(this);
+            //verkoopModel.clearArtikelen();
             for(Artikel artikel: artikelArrayList){
-                verkoopModel.addArtikel(artikel);
+                verkoop.addArtikel(artikel);
             }
+            this.verkoopModel = verkoop;
+            update(null, this.verkoopModel.getArtikelen(), 0,false);
 
         } catch (IOException | ClassNotFoundException e) {
             throw new ControllerException(e.getMessage());
         }
+        //verkoopModel.getCurrentState().zetNietOnHold();
     }
     public List<Artikel> convertToCustomerView(List<Artikel> artikelArrayList) {
         List<Artikel> result = new ArrayList<>();
@@ -181,22 +191,40 @@ public class VerkoopController implements Observer {
 
     public void annuleerVerkoop() {
         verkoopModel.getCurrentState().annuleer();
+        update(null, new ArrayList<>(),0,true);
+    }
+
+    public void resetVerkoop() {
+        verkoopModel.getCurrentState().reset();
+        update(null, new ArrayList<>(),0,true);
+
     }
 
     public void eindigVerkoop() {
             this.printKassaTicket();
-            verkoopModel.getCurrentState().volgendeVerkoop();
+            verkoopModel.getCurrentState().betaal();
+            update(null, new ArrayList<>(),0,true);
+
+
+    }
+
+    public void sluitVerkoopAf() {
+        this.verkoopModel.getCurrentState().sluitAf();
+
     }
 
 
     @Override
     public void update(Artikel a, List<Artikel> artikelen, double korting, boolean afgesloten) {
         double totalePrijs = verkoopModel.getTotalePrijs();
+
         verkoopPane.updateDisplay(totalePrijs, artikelen, korting, afgesloten);
 
         klantViewPane.updateDisplay(totalePrijs, artikelen, korting, afgesloten);
         if(a == null) {
             overviewPane.updateDisplay(artikelen);
         }
+
+
     }
 }

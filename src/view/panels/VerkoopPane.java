@@ -84,17 +84,23 @@ public class VerkoopPane extends GridPane {
             this.afsluit.setDisable(true);
             this.codeTextField.setDisable(true);
             verkoopController.update();
+            verkoopController.sluitVerkoopAf();
             //verkoopController.printKassaTicket();
         });
 
         this.add(betaaldBtn,1,4);
         betaaldBtn.setOnAction(event -> {
             verkoopController.eindigVerkoop();
+            verkoopController.resetVerkoop();
         });
         this.add(annuleerBtn, 1, 5);
         annuleerBtn.setOnAction(event ->{
            //verkoopController.eindigVerkoop();
             verkoopController.annuleerVerkoop();
+            verkoopController.resetVerkoop();
+            /*this.prijs.setText("Totale prijs: ");
+            this.korting.setText("Totale korting: ");
+            this.bedrag.setText("Totaal bedrag: ");*/
         });
 
     }

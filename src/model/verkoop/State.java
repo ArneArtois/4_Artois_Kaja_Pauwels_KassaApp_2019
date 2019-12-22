@@ -17,8 +17,14 @@ public interface State extends Serializable {
     default void onHold()  {
         throw new IllegalStateException("IllegalState: OnHold");
     }
+    default void zetNietOnHold() {
+        throw new IllegalStateException("IllegalState: verkoop terugzetten");
+    }
     default void genoegGeld() {
         throw new IllegalStateException("IllegalState: GenoegGeld");
+    }
+    default void sluitAf() {
+        throw new IllegalStateException("IllegalState: Afsluiten");
     }
 
     default void nietGenoegGeld() {
