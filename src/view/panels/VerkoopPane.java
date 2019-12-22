@@ -105,6 +105,12 @@ public class VerkoopPane extends GridPane {
 
     }
 
+    public void resetLabels() {
+        this.prijs.setText("Totale prijs: ");
+        this.korting.setText("Totale korting: ");
+        this.bedrag.setText("Totaal bedrag: ");
+    }
+
     public void updateDisplay(double prijs, List<Artikel> artikelen, double korting, boolean afgesloten) {
         this.prijs.setText("Totale prijs: " + prijs);
         this.prijsDouble = prijs;

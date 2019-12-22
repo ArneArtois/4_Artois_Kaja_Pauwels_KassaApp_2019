@@ -55,6 +55,12 @@ public class KlantViewPane extends GridPane {
         return tableView;
     }
 
+    public void resetLabels() {
+        this.prijs.setText("Totale prijs: ");
+        this.korting.setText("");
+        this.teBetalen.setText("");
+    }
+
     public void updateDisplay(double prijs, List<Artikel> artikelen, double korting, boolean afgesloten) {
 
         this.prijs.setText("Totale prijs: " + prijs);
