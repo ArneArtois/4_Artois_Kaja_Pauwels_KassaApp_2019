@@ -132,6 +132,14 @@ public class VerkoopPane extends GridPane {
         return this.afsluit.isDisabled();
     }
 
+    public void setInputField(boolean val) {
+        this.codeTextField.setDisable(val);
+    }
+
+    public void setAfsluit(boolean val) {
+        this.afsluit.setDisable(val);
+    }
+
     /*public Label getPrijs() {
         return prijs;
     }

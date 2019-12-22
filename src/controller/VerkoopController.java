@@ -197,13 +197,17 @@ public class VerkoopController implements Observer {
     public void resetVerkoop() {
         verkoopModel.getCurrentState().reset();
         update(null, new ArrayList<>(),0,true);
+        verkoopPane.setAfsluit(false);
+        verkoopPane.setInputField(false);
 
     }
 
     public void eindigVerkoop() {
-            this.printKassaTicket();
             verkoopModel.getCurrentState().betaal();
+            this.printKassaTicket();
             update(null, new ArrayList<>(),0,true);
+            verkoopPane.setAfsluit(false);
+            verkoopPane.setInputField(false);
 
 
     }
