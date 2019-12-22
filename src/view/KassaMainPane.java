@@ -22,7 +22,6 @@ import java.io.OutputStream;
 import java.util.*;
 
 public class KassaMainPane extends BorderPane {
-    //TODO Mag dit? Niet zeker?
     public VerkoopController verkoopController;
     public ArtikelDBContext context;
     private Properties properties;
